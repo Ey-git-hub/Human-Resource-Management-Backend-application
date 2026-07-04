@@ -1,0 +1,27 @@
+package com.HumanResourceManagement.application.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Data
+@Entity
+@Table(name = "employee_table")
+public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    @Column(nullable = false)
+    private String firstName;
+    private String lastName;
+    @Column(nullable = false,unique = true)
+    private String email;
+    private String phoneNumber;
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime hireTime;
+    private boolean isActive=true;
+}
