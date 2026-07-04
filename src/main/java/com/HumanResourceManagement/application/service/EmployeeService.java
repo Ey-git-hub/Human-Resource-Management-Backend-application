@@ -10,6 +10,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EmployeeService {
     public List<Employee> fetchAllEmployees() {
+return ;
+    }
+
+    public Employee createEmployee(Employee employee) {
 
     }
 }
