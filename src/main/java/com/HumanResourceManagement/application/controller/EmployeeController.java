@@ -19,7 +19,9 @@ public class EmployeeController {
     }
     @PostMapping
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){
-        Employee addedEmployee=employeeService.createEmployee(employee);
-        return ResponseEntity.ok(addedEmployee);
+        boolean addedEmployee=employeeService.createEmployee(employee);
+        if (addedEmployee){
+        return ResponseEntity.accepted().build();}
+        return ResponseEntity.badRequest().build();
     }
 }
