@@ -12,6 +12,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "employee_table")
+
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +25,14 @@ public class Employee {
     private String email;
     private String phoneNumber;
     private String JobTitle;
-//    njb
-    private String departmentName;
+
+//    combining department entity to employee
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="department_id")
+    private Department department;
     private Double salary;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private EmployeeStatus status=EmployeeStatus.ACTIVE;
     @Column(updatable = false)
     private LocalDate hireDate;
