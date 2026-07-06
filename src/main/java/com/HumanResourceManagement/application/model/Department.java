@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
