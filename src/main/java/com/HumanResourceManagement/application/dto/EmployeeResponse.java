@@ -18,7 +18,8 @@ public class EmployeeResponse {
     private LocalDate hireDate;
     private String JobTile;
     private Double salary;
-    private Long DepartmentId;
+    private Long departmentId;
+    private String department;
     private EmployeeStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -37,6 +38,9 @@ response.setStatus(employee.getStatus());
 response.setCreatedAt(employee.getCreatedAt());
 response.setUpdatedAt(employee.getUpdatedAt());
 //after relation ship with tables
-//if (employee.getdepart)
+if (employee.getDepartment()!=null){
+    response.setDepartmentId(employee.getDepartment().getId());
+    response.setDepartment(employee.getDepartment().getName());
+}
     return response;
 }}
