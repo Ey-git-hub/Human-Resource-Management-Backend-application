@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -26,6 +27,6 @@ public class Employee {
     private EmployeeStatus status=EmployeeStatus.ACTIVE;
     @CreationTimestamp
     @Column(updatable = false)
-    private LocalDateTime hireTime;
+    private LocalDate hireDate;
 
 }
