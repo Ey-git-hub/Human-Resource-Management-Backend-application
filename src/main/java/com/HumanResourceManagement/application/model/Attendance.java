@@ -14,6 +14,9 @@ public class Attendance {
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="employee_id")
+    private Employee employee;
     @Column(nullable=false)
     private LocalDate date;
     private LocalTime checkInTime;
