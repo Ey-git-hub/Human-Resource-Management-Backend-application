@@ -27,6 +27,7 @@ public class Department {
     private String Description;
 
     @CreationTimestamp
+    @Column(updatable=false)
     private LocalDateTime createdAt;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
