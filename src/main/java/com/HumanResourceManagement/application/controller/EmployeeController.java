@@ -21,7 +21,8 @@ public class EmployeeController {
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){
         boolean addedEmployee=employeeService.createEmployee(employee);
         if (addedEmployee){
-        return ResponseEntity.accepted().build();}
+        return ResponseEntity.accepted().build();
+        }
         return ResponseEntity.badRequest().build();
     }
 }

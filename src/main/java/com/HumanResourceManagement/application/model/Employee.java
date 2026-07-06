@@ -16,12 +16,16 @@ public class Employee {
     private UUID id;
     @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
     @Column(nullable = false,unique = true)
     private String email;
     private String phoneNumber;
+    private String JobTitle;
+    private Double salary;
+    private EmployeeStatus status=EmployeeStatus.ACTIVE;
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime hireTime;
-    private boolean isActive=true;
+
 }
