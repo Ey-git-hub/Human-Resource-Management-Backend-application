@@ -37,7 +37,6 @@ response.setSalary(employee.getSalary());
 response.setStatus(employee.getStatus());
 response.setCreatedAt(employee.getCreatedAt());
 response.setUpdatedAt(employee.getUpdatedAt());
-//after relation ship with tables
 if (employee.getDepartment()!=null){
     response.setDepartmentId(employee.getDepartment().getId());
     response.setDepartment(employee.getDepartment().getName());
