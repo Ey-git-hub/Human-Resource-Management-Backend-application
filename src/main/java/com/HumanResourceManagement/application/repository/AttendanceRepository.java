@@ -1,4 +1,9 @@
 package com.HumanResourceManagement.application.repository;
 
-public interface AttendanceRepository {
+import com.HumanResourceManagement.application.model.Attendance;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
 }
