@@ -1,5 +1,6 @@
 package com.HumanResourceManagement.application.controller;
 
+import com.HumanResourceManagement.application.dto.EmployeeResponse;
 import com.HumanResourceManagement.application.model.Employee;
 import com.HumanResourceManagement.application.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -13,10 +14,12 @@ import java.util.List;
 @RequestMapping("/api/employees")
 public class EmployeeController {
     private final EmployeeService employeeService;
+    //to get all the employees
     @GetMapping
-    public List<Employee> getAllEmployees(){
-        return employeeService.fetchAllEmployees();
+    public ResponseEntity<List<EmployeeResponse>> getAllEmployees(){
+        return ResponseEntity.ok(employeeService.fetchAllEmployees());
     }
+
     @PostMapping
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){
         boolean addedEmployee=employeeService.createEmployee(employee);
