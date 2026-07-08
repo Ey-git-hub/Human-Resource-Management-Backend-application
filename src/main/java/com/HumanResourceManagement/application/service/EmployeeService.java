@@ -83,4 +83,8 @@ return EmployeeResponse.fromEmployee(employeeRepository.save(existing));
 
 
     }
+
+    public boolean deleteEmployee(Long id) {
+
+    }
 }
