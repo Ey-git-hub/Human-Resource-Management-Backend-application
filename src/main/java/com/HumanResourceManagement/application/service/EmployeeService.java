@@ -33,7 +33,7 @@ public class EmployeeService {
     }
 
     public EmployeeResponse createEmployee(EmployeeRequest request) {
-        if(employeeRepository.existByEmail(request.getEmail())){
+        if(employeeRepository.existsByEmail(request.getEmail())){
             throw new IllegalArgumentException("employee already exists with this email: "+request.getEmail());
 
         }
@@ -54,11 +54,4 @@ public class EmployeeService {
         return EmployeeResponse.fromEmployee(employeeRepository.save(employee));
 
     }
-
-
-//    public boolean createEmployee(Employee employee) {
-//        employeeRepository.save(employee);
-//        return true;
-//
-//    }
 }

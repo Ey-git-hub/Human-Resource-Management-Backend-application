@@ -23,6 +23,7 @@ public class EmployeeController {
     public ResponseEntity<List<EmployeeResponse>> getAllEmployees(){
         return ResponseEntity.ok(employeeService.fetchAllEmployees());
     }
+    //to get a single employee using id
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeResponse> getEmployeeById(@PathVariable Long id){
         Optional<EmployeeResponse> result=employeeService.getEmployeeById(id);
