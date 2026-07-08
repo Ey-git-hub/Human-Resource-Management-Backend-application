@@ -44,4 +44,13 @@ public class EmployeeController {
     public ResponseEntity<EmployeeResponse> updateEmployee(@PathVariable Long id,@RequestBody EmployeeRequest request){
      return ResponseEntity.ok(employeeService.UpdateEmployee(id,request));
     }
-}
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id){
+        Optional<EmployeeResponse> result=employeeService.deleteEmployee(id);
+        boolean found=result.isPresent();
+        if (found){
+            return ResponseEntity.ok(result.get());
+        }
+        return ResponseEntity.notFound().build();
+
+}}
