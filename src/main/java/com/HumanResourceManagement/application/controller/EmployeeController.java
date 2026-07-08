@@ -1,9 +1,11 @@
 package com.HumanResourceManagement.application.controller;
 
+import com.HumanResourceManagement.application.dto.EmployeeRequest;
 import com.HumanResourceManagement.application.dto.EmployeeResponse;
 import com.HumanResourceManagement.application.model.Employee;
 import com.HumanResourceManagement.application.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,21 +32,10 @@ public class EmployeeController {
         }
         return ResponseEntity.notFound().build();
     }
+    @PostMapping
+    public ResponseEntity<EmployeeResponse> addEmployee(@RequestBody EmployeeRequest request){
+      EmployeeResponse created= employeeService.createEmployee(request);
+      return ResponseEntity.status(HttpStatus.CREATED).body(created);
 
 
-
-
-
-
-
-
-
-//    @PostMapping
-//    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){
-//        boolean addedEmployee=employeeService.createEmployee(employee);
-//        if (addedEmployee){
-//        return ResponseEntity.accepted().build();
-//        }
-//        return ResponseEntity.badRequest().build();
-//    }
-}
+}}

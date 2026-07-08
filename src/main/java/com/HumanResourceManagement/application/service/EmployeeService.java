@@ -1,6 +1,8 @@
 package com.HumanResourceManagement.application.service;
 
+import com.HumanResourceManagement.application.dto.EmployeeRequest;
 import com.HumanResourceManagement.application.dto.EmployeeResponse;
+import com.HumanResourceManagement.application.model.Employee;
 import com.HumanResourceManagement.application.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,10 @@ public class EmployeeService {
                 .map(EmployeeResponse::fromEmployee);
     }
 
+    public EmployeeResponse createEmployee(EmployeeRequest request) {
+        employeeRepository.save(request);
+
+    }
 
 
 //    public boolean createEmployee(Employee employee) {
