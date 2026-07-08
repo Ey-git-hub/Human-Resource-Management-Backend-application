@@ -5,6 +5,8 @@ import lombok.Data;
 //import com.HumanResourceManagement.application.model.Employee;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
+
 @Data
 public class DepartmentResponse {
     private Long id;

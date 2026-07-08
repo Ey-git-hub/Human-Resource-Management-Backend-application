@@ -6,6 +6,8 @@ import com.HumanResourceManagement.application.model.LeaveType;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.UUID;
+
 @Data
 public class LeaveResponse {
     private Long id;

@@ -22,7 +22,7 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.fetchAllEmployees());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<EmployeeResponse> getEmployeeById(@PathVariable UUID id){
+    public ResponseEntity<EmployeeResponse> getEmployeeById(@PathVariable Long id){
         Optional<EmployeeResponse> result=employeeService.getEmployeeById(id);
         boolean found=result.isPresent();
         if (found){

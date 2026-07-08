@@ -21,7 +21,7 @@ public class EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<EmployeeResponse> getEmployeeById(UUID id) {
+    public Optional<EmployeeResponse> getEmployeeById(Long id) {
         return employeeRepository.findById(id)
                 .map(EmployeeResponse::fromEmployee);
     }
