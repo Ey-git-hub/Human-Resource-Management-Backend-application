@@ -84,7 +84,10 @@ return EmployeeResponse.fromEmployee(employeeRepository.save(existing));
 
     }
 
-    public boolean deleteEmployee(Long id) {
+    public void deleteEmployee(Long id) {
+        Employee result=employeeRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("there is no employee with id: "+id));
+         employeeRepository.delete(result);
 
     }
 }
