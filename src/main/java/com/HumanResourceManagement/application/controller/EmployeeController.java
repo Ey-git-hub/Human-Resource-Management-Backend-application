@@ -37,9 +37,7 @@ public class EmployeeController {
     @PostMapping
     public ResponseEntity<EmployeeResponse> addEmployee(@RequestBody EmployeeRequest request){
       EmployeeResponse created= employeeService.createEmployee(request);
-      return ResponseEntity.status(HttpStatus.CREATED).body(created)
-
-
+      return ResponseEntity.status(HttpStatus.CREATED).body(created);
 
 }
     @PutMapping("/{id}")

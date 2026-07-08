@@ -54,4 +54,21 @@ public class EmployeeService {
         return EmployeeResponse.fromEmployee(employeeRepository.save(employee));
 
     }
+
+    public EmployeeResponse UpdateEmployee(Long id, EmployeeRequest request) {
+       Employee existing= employeeRepository.findById(id)
+               .orElseThrow(()-> new IllegalArgumentException("Employee not Found with id: "+id));
+        existing.setFirstName(request.getFirstName());
+        existing.setLastName(request.getLastName());
+//        existing.setEmail(request.getEmail());
+        existing.setPhoneNumber(request.getPhoneNumber());
+        existing.setJobTitle(request.getJobTitle());
+        existing.setSalary(request.getSalary());
+        existing.setHireDate(request.getHireDate());
+        existing.setStatus(request.getStatus());
+
+
+
+
+    }
 }
