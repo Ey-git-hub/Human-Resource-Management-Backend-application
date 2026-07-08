@@ -22,9 +22,23 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.fetchAllEmployees());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<EmployeeResponse> getEmployeeById(@PathVariable Long id){
-        return ResponseEntity.ok(employeeService.getEmployeeById(id));
+    public ResponseEntity<EmployeeResponse> getEmployeeById(@PathVariable UUID id){
+        Optional<EmployeeResponse> result=employeeService.getEmployeeById(id);
+        boolean found=result.isPresent();
+        if (found){
+            return ResponseEntity.ok(result.get());
+        }
+        return ResponseEntity.notFound().build();
     }
+
+
+
+
+
+
+
+
+
 //    @PostMapping
 //    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){
 //        boolean addedEmployee=employeeService.createEmployee(employee);

@@ -1,7 +1,6 @@
 package com.HumanResourceManagement.application.service;
 
 import com.HumanResourceManagement.application.dto.EmployeeResponse;
-import com.HumanResourceManagement.application.model.Employee;
 import com.HumanResourceManagement.application.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,8 +21,9 @@ public class EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    public EmployeeResponse getEmployeeById(Long id) {
-        return
+    public Optional<EmployeeResponse> getEmployeeById(UUID id) {
+        return employeeRepository.findById(id)
+                .map(EmployeeResponse::fromEmployee);
     }
 
 
