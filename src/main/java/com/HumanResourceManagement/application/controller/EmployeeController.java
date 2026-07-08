@@ -33,10 +33,17 @@ public class EmployeeController {
         }
         return ResponseEntity.notFound().build();
     }
+    //to create new employee
     @PostMapping
     public ResponseEntity<EmployeeResponse> addEmployee(@RequestBody EmployeeRequest request){
       EmployeeResponse created= employeeService.createEmployee(request);
-      return ResponseEntity.status(HttpStatus.CREATED).body(created);
+      return ResponseEntity.status(HttpStatus.CREATED).body(created)
 
 
-}}
+
+}
+    @PutMapping("/{id}")
+    public ResponseEntity<EmployeeResponse> updateEmployee(@PathVariable Long id,@RequestBody EmployeeRequest request){
+     return ResponseEntity.ok(employeeService.UpdateEmployee(id,request));
+    }
+}
