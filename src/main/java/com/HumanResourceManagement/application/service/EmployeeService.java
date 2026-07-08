@@ -72,8 +72,14 @@ public class EmployeeService {
             }
             existing.setEmail(request.getEmail());
         }
+        if (request.getDepartmentId()!=null){
+            Department department =departmentRepository.findById(request.getDepartmentId())
+                    .orElseThrow(()->new IllegalArgumentException("department is not found with id: "+request.getDepartmentId()));
+            existing.setDepartment(department);
+        }
 
 
+return EmployeeResponse.fromEmployee(employeeRepository.save(existing));
 
 
     }
