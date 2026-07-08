@@ -66,6 +66,12 @@ public class EmployeeService {
         existing.setSalary(request.getSalary());
         existing.setHireDate(request.getHireDate());
         existing.setStatus(request.getStatus());
+        if(!existing.getEmail().equals(request.getEmail())){
+            if(employeeRepository.existsByEmail(request.getEmail())){
+                throw new IllegalArgumentException("employee already exists with this email :"+request.getEmail());
+            }
+            existing.setEmail(request.getEmail());
+        }
 
 
 
