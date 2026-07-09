@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,5 +18,12 @@ public class DepartmentService {
         return departmentRepository.findAll().stream()
                 .map(DepartmentResponse::fromEntity)
                 .collect(Collectors.toList());
+    }
+
+
+    public Optional<DepartmentResponse> getDepartment(Long id) {
+        return departmentRepository.findById(id)
+                .map(DepartmentResponse::fromEntity);
+
     }
 }
