@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequestMapping("/api/departments")
 public class DepartmentController {
     private final DepartmentService departmentService;
-  private final EmployeeService employeeService;
+
 
   @GetMapping
     public ResponseEntity<List<DepartmentResponse>> getAllDepartments(){
@@ -35,7 +35,7 @@ public class DepartmentController {
   }
   @PostMapping
   public ResponseEntity<DepartmentResponse> createDepartment(@RequestBody DepartmentRequest request){
-    Department created=employeeService.createDepartment(request);
-    return ResponseEntity.status(HttpStatus.CREATED).build(created);
+    DepartmentResponse created=departmentService.createDepartment(request);
+    return ResponseEntity.status(HttpStatus.CREATED).body(created);
   }
 }

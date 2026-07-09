@@ -1,6 +1,9 @@
 package com.HumanResourceManagement.application.service;
 
+import com.HumanResourceManagement.application.dto.DepartmentRequest;
 import com.HumanResourceManagement.application.dto.DepartmentResponse;
+import com.HumanResourceManagement.application.model.Department;
+import com.HumanResourceManagement.application.model.Employee;
 import com.HumanResourceManagement.application.repository.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,4 +30,18 @@ public class DepartmentService {
 
     }
 
+
+    public DepartmentResponse createDepartment(DepartmentRequest request) {
+        if(departmentRepository.existsByName(request.getName())){
+            throw new IllegalArgumentException("department already exists with name : "+request.getName());
+        }
+        Department department=new Department();
+        department.setName(request.getName());
+        department.setDescription(request.getDescription());
+        if(request.getManagerName()!=null){
+            Employee manager=
+        }
+       return DepartmentResponse.fromEntity(departmentRepository.save(department));
+
+    }
 }

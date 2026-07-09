@@ -88,6 +88,5 @@ return EmployeeResponse.fromEmployee(employeeRepository.save(existing));
 
     }
 
-    public Department createDepartment(DepartmentRequest request) {
-    }
+
 }
