@@ -1,6 +1,7 @@
 package com.HumanResourceManagement.application.controller;
 
 import com.HumanResourceManagement.application.dto.DepartmentResponse;
+import com.HumanResourceManagement.application.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +14,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/departments")
 public class DepartmentContoller {
-    private  Final DepartmentService departmentService;
+    private final DepartmentService departmentService;
   @GetMapping
     public ResponseEntity<List<DepartmentResponse>> getAllDepartments(){
-      return ResponseEntity.ok(departmentService.fetchAllDepartments);
+      return ResponseEntity.ok(departmentService.fetchAllDepartments());
   }
 }
