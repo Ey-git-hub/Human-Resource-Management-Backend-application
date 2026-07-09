@@ -1,5 +1,6 @@
 package com.HumanResourceManagement.application.service;
 
+import com.HumanResourceManagement.application.dto.DepartmentRequest;
 import com.HumanResourceManagement.application.dto.EmployeeRequest;
 import com.HumanResourceManagement.application.dto.EmployeeResponse;
 import com.HumanResourceManagement.application.model.Department;
@@ -85,5 +86,8 @@ return EmployeeResponse.fromEmployee(employeeRepository.save(existing));
                 .orElseThrow(()->new IllegalArgumentException("there is no employee with id: "+id));
          employeeRepository.delete(result);
 
+    }
+
+    public Department createDepartment(DepartmentRequest request) {
     }
 }

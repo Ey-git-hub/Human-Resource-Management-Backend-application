@@ -1,14 +1,14 @@
 package com.HumanResourceManagement.application.controller;
 
+import com.HumanResourceManagement.application.dto.DepartmentRequest;
 import com.HumanResourceManagement.application.dto.DepartmentResponse;
 import com.HumanResourceManagement.application.model.Department;
 import com.HumanResourceManagement.application.service.DepartmentService;
+import com.HumanResourceManagement.application.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +18,8 @@ import java.util.Optional;
 @RequestMapping("/api/departments")
 public class DepartmentController {
     private final DepartmentService departmentService;
+  private final EmployeeService employeeService;
+
   @GetMapping
     public ResponseEntity<List<DepartmentResponse>> getAllDepartments(){
       return ResponseEntity.ok(departmentService.fetchAllDepartments());
@@ -30,5 +32,10 @@ public class DepartmentController {
       return ResponseEntity.ok(department.get());
   }
    return ResponseEntity.notFound().build();
+  }
+  @PostMapping
+  public ResponseEntity<DepartmentResponse> createDepartment(@RequestBody DepartmentRequest request){
+    Department created=employeeService.createDepartment(request);
+    return ResponseEntity.status(HttpStatus.CREATED).build(created);
   }
 }

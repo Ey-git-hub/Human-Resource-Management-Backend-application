@@ -26,4 +26,5 @@ public class DepartmentService {
                 .map(DepartmentResponse::fromEntity);
 
     }
+
 }
