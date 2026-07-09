@@ -38,9 +38,10 @@ public class DepartmentService {
         Department department=new Department();
         department.setName(request.getName());
         department.setDescription(request.getDescription());
-        if(request.getManagerName()!=null){
-            Employee manager=
-        }
+        //i will continue this
+//        if(request.getManagerName()!=null){
+//            Employee manager=
+//        }
        return DepartmentResponse.fromEntity(departmentRepository.save(department));
 
     }
