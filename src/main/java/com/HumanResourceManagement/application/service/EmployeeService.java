@@ -60,7 +60,6 @@ public class EmployeeService {
                .orElseThrow(()-> new IllegalArgumentException("Employee not Found with id: "+id));
         existing.setFirstName(request.getFirstName());
         existing.setLastName(request.getLastName());
-//        existing.setEmail(request.getEmail());
         existing.setPhoneNumber(request.getPhoneNumber());
         existing.setJobTitle(request.getJobTitle());
         existing.setSalary(request.getSalary());
@@ -77,10 +76,7 @@ public class EmployeeService {
                     .orElseThrow(()->new IllegalArgumentException("department is not found with id: "+request.getDepartmentId()));
             existing.setDepartment(department);
         }
-
-
 return EmployeeResponse.fromEmployee(employeeRepository.save(existing));
-
 
     }
 
