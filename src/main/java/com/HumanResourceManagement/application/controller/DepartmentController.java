@@ -2,9 +2,9 @@ package com.HumanResourceManagement.application.controller;
 
 import com.HumanResourceManagement.application.dto.DepartmentRequest;
 import com.HumanResourceManagement.application.dto.DepartmentResponse;
-import com.HumanResourceManagement.application.model.Department;
+//import com.HumanResourceManagement.application.model.Department;
 import com.HumanResourceManagement.application.service.DepartmentService;
-import com.HumanResourceManagement.application.service.EmployeeService;
+//import com.HumanResourceManagement.application.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
