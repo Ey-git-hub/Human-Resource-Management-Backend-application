@@ -6,7 +6,7 @@ import com.HumanResourceManagement.application.model.Department;
 //import com.HumanResourceManagement.application.model.Employee;
 import com.HumanResourceManagement.application.repository.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+// import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,33 +24,30 @@ public class DepartmentService {
                 .collect(Collectors.toList());
     }
 
-
     public Optional<DepartmentResponse> getDepartment(Long id) {
         return departmentRepository.findById(id)
                 .map(DepartmentResponse::fromEntity);
 
     }
 
-
     public DepartmentResponse createDepartment(DepartmentRequest request) {
-        if(departmentRepository.existsByName(request.getName())){
-            throw new IllegalArgumentException("department already exists with name : "+request.getName());
+        if (departmentRepository.existsByName(request.getName())) {
+            throw new IllegalArgumentException("department already exists with name : " + request.getName());
         }
-        Department department=new Department();
+        Department department = new Department();
         department.setName(request.getName());
         department.setDescription(request.getDescription());
-        //i will continue this
-//        if(request.getManagerName()!=null){
-//            Employee manager=
-//        }
-       return DepartmentResponse.fromEntity(departmentRepository.save(department));
+        // i will continue this
+        // if(request.getManagerName()!=null){
+        // Employee manager=
+        // }
+        return DepartmentResponse.fromEntity(departmentRepository.save(department));
 
     }
 
-
     public DepartmentResponse updateDepartment(Long id, DepartmentRequest request) {
-        Department existing=departmentRepository.findById(id)
-                .orElseThrow(()-> new IllegalArgumentException("department does not exist with id: "+id));
+        Department existing = departmentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("department does not exist with id: " + id));
         existing.setName(request.getName());
         existing.setDescription(request.getDescription());
 

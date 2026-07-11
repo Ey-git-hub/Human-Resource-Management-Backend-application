@@ -7,18 +7,17 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.UUID;
 
 @Data
 @Entity
 public class Attendance {
     @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="employee_id")
+    @JoinColumn(name = "employee_id")
     private Employee employee;
-    @Column(nullable=false)
+    @Column(nullable = false)
     private LocalDate date;
     private LocalTime checkInTime;
     private LocalTime checkOutTime;

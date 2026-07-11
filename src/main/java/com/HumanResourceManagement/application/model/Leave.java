@@ -2,9 +2,7 @@ package com.HumanResourceManagement.application.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
 @Entity
@@ -15,11 +13,11 @@ public class Leave {
     @Enumerated(EnumType.STRING)
     private LeaveType leaveType;
     @ManyToOne
-    @JoinColumn(name="employee_id",nullable = false)
+    @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
     private String reason;
     @Enumerated(EnumType.STRING)
-    private LeaveStatus status=LeaveStatus.PENDING;
+    private LeaveStatus status = LeaveStatus.PENDING;
     @Column(nullable = false)
     private LocalDate startDate;
     @Column(nullable = false)
