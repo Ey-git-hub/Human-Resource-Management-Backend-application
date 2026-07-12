@@ -47,4 +47,10 @@ public class AttendanceController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<AttendanceResponse> updateAttendance(@PathVariable Long id,
+            @RequestBody AttendanceRequest request) {
+        return ResponseEntity.ok(attendanceService.updateAttendance(id, request));
+    }
+
 }
