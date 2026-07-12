@@ -20,7 +20,7 @@ import lombok.Data;
 @Data
 public class AttendanceResponse {
     private Long id;
-    private Employee employee;
+    private String employee;
     private LocalDate date;
     private LocalTime checkInTime;
     private LocalTime checkOutTime;
@@ -35,8 +35,10 @@ public class AttendanceResponse {
         response.setStatus(attendance.getStatus());
         response.setDate(attendance.getDate());
         if (attendance.getEmployee() != null) {
-          response.set
+            response.setEmployee(
+                    attendance.getEmployee().getFirstName() + " " + attendance.getEmployee().getLastName());
         }
+        response.setCreatedAt(attendance.getCreatedAt());
 
         return response;
     }
