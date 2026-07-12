@@ -7,12 +7,16 @@ import java.time.LocalTime;
 // import org.hibernate.annotations.CreationTimestamp;
 
 import com.HumanResourceManagement.application.model.AttendanceStatus;
-// import com.HumanResourceManagement.application.model.Employee;
 
+import lombok.Data;
+
+// import com.HumanResourceManagement.application.model.Employee;
+@Data
 public class AttendanceRequest {
 
     private Long id;
     private String employeeName;
+    private Long employeeId;
     private LocalDate date;
     private LocalTime checkInTime;
     private LocalTime checkOutTime;

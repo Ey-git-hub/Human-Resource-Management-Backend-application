@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import com.HumanResourceManagement.application.dto.AttendanceRequest;
 import com.HumanResourceManagement.application.dto.AttendanceResponse;
+import com.HumanResourceManagement.application.model.Employee;
 import com.HumanResourceManagement.application.repository.AttendanceRepository;
+import com.HumanResourceManagement.application.repository.EmployeeRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AttendanceService {
     private final AttendanceRepository attendanceRepository;
+    private final EmployeeRepository employeeRepository;
 
     public List<AttendanceResponse> getAllAttendance() {
         return attendanceRepository.findAll().stream().map(AttendanceResponse::fromAttendance)
@@ -30,13 +33,18 @@ public class AttendanceService {
     }
 
     public AttendanceResponse addNewAttendance(AttendanceRequest request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addNewAttendance'");
+        Employee employee = employeeRepository.findById(request.getEmployeeId())
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Employee not found with id: " + request.getEmployeeId()));
+
+        if (attendanceRepository.findByEmployeeIdAndDate(request.getEmployeeId(), request.getDate()).isPresent()) {
+            throw new IllegalStateException("An attendance record already exists for this employee on this date.");
+        }
+
     }
 
     public @Nullable Object updateAttendance(Long id, AttendanceRequest request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateAttendance'");
+
     }
 
 }
