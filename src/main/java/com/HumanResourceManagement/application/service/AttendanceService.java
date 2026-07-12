@@ -26,8 +26,7 @@ public class AttendanceService {
     }
 
     public Optional<AttendanceResponse> getAttendanceById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAttendanceById'");
+        return attendanceRepository.findById(id).map(AttendanceResponse::fromAttendance);
     }
 
     public AttendanceResponse addNewAttendance(AttendanceRequest request) {
