@@ -1,11 +1,13 @@
 package com.HumanResourceManagement.application.model;
-import jakarta.persistence.*;
 
+import jakarta.persistence.*;
 
 import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 // import java.time.LocalTime;
+
+import com.HumanResourceManagement.Employee.Model.Employee;
 
 @Data
 @Entity
