@@ -23,9 +23,9 @@ public class WorkSchedule {
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shift_id", nullable = false)
-    private Shift shift;
+    // @ManyToOne(fetch = FetchType.LAZY)
+    // @JoinColumn(name = "shift_id", nullable = false)
+    // private Shift shift;
 
     @Column(name = "effective_date", nullable = false)
     private LocalDate effectiveDate;
