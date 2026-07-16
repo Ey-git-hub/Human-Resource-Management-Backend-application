@@ -1,4 +1,4 @@
-package com.HumanResourceManagement.application.model;
+package com.HumanResourceManagement.Payroll.Model;
 
 public enum PayrollStatus {
     PENDING,
