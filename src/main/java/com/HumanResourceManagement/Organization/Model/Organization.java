@@ -13,11 +13,11 @@ import java.time.LocalDate;
 public class Organization {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    // @Column(nullable = false)
+    // private String name;
 
     @Column(name = "legal_name")
     private String legalName;
