@@ -1,10 +1,12 @@
-package com.HumanResourceManagement.Organization;
+package com.HumanResourceManagement.Organization.DTO;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
-import com.HumanResourceManagement.application.model.Organization.Department;
+import com.HumanResourceManagement.Organization.Model.Department;
+
+// import com.HumanResourceManagement.application.model.Organization.Department;
 
 @Data
 public class DepartmentResponse {

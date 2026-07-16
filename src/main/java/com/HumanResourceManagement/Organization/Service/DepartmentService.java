@@ -1,6 +1,10 @@
-package com.HumanResourceManagement.Organization;
+package com.HumanResourceManagement.Organization.Service;
 
-import com.HumanResourceManagement.application.model.Organization.Department;
+import com.HumanResourceManagement.Organization.DTO.DepartmentRequest;
+import com.HumanResourceManagement.Organization.DTO.DepartmentResponse;
+import com.HumanResourceManagement.Organization.Model.Department;
+import com.HumanResourceManagement.Organization.Repository.DepartmentRepository;
+// import com.HumanResourceManagement.application.model.Organization.Department;
 
 import lombok.RequiredArgsConstructor;
 // import org.springframework.http.ResponseEntity;

@@ -1,8 +1,10 @@
-package com.HumanResourceManagement.Leave;
+package com.HumanResourceManagement.Leave.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.HumanResourceManagement.application.model.Leave.Leave;
+import com.HumanResourceManagement.Leave.Model.Leave;
+
+// import com.HumanResourceManagement.application.model.Leave.Leave;
 
 public interface LeaveRepository extends JpaRepository<Leave, Long> {
 }

@@ -1,4 +1,4 @@
-package com.HumanResourceManagement.Leave;
+package com.HumanResourceManagement.Leave.Controller;
 
 public class LeaveController {
 

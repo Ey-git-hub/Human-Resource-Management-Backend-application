@@ -1,12 +1,16 @@
-package com.HumanResourceManagement.Leave;
+package com.HumanResourceManagement.Leave.DTO;
 
-import com.HumanResourceManagement.application.model.Leave.Leave;
-import com.HumanResourceManagement.application.model.Leave.LeaveStatus;
-import com.HumanResourceManagement.application.model.Leave.LeaveType;
+// import com.HumanResourceManagement.application.model.Leave.Leave;
+// import com.HumanResourceManagement.application.model.Leave.LeaveStatus;
+// import com.HumanResourceManagement.application.model.Leave.LeaveType;
 
 import lombok.Data;
 
 import java.time.LocalDate;
+
+import com.HumanResourceManagement.Leave.Model.Leave;
+import com.HumanResourceManagement.Leave.Model.LeaveStatus;
+import com.HumanResourceManagement.Leave.Model.LeaveType;
 
 @Data
 public class LeaveResponse {

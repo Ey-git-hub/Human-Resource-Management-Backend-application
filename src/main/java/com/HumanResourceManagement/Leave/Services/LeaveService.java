@@ -1,4 +1,4 @@
-package com.HumanResourceManagement.Leave;
+package com.HumanResourceManagement.Leave.Services;
 
 public class LeaveService {
 

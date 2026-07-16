@@ -1,8 +1,10 @@
-package com.HumanResourceManagement.Leave;
+package com.HumanResourceManagement.Leave.DTO;
 
 import java.time.LocalDate;
 
-import com.HumanResourceManagement.application.model.Leave.LeaveType;
+import com.HumanResourceManagement.Leave.Model.LeaveType;
+
+// import com.HumanResourceManagement.application.model.Leave.LeaveType;
 
 import lombok.Data;
 

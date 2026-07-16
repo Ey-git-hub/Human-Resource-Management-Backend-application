@@ -4,8 +4,9 @@ import com.HumanResourceManagement.Employee.DTO.EmployeeRequest;
 import com.HumanResourceManagement.Employee.DTO.EmployeeResponse;
 import com.HumanResourceManagement.Employee.Model.Employee;
 import com.HumanResourceManagement.Employee.Repository.EmployeeRepository;
-import com.HumanResourceManagement.Organization.DepartmentRepository;
-import com.HumanResourceManagement.application.model.Organization.Department;
+import com.HumanResourceManagement.Organization.Model.Department;
+import com.HumanResourceManagement.Organization.Repository.DepartmentRepository;
+// import com.HumanResourceManagement.application.model.Organization.Department;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.HumanResourceManagement.application.model.Leave;
+package com.HumanResourceManagement.Leave.Model;
 
 public enum LeaveType {
     SICK,

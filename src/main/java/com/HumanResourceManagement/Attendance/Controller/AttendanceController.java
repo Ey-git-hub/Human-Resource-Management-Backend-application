@@ -40,11 +40,12 @@ public class AttendanceController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping
-    public ResponseEntity<AttendanceResponse> newAttendance(@RequestBody AttendanceRequest request) {
-        AttendanceResponse created = attendanceService.addNewAttendance(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(created);
-    }
+    // @PostMapping
+    // public ResponseEntity<AttendanceResponse> newAttendance(@RequestBody
+    // AttendanceRequest request) {
+    // AttendanceResponse created = attendanceService.addNewAttendance(request);
+    // return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    // }
 
     // @PutMapping("/{id}")
     // public ResponseEntity<AttendanceResponse> updateAttendance(@PathVariable Long

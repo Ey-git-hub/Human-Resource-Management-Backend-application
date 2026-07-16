@@ -1,6 +1,9 @@
-package com.HumanResourceManagement.Organization;
+package com.HumanResourceManagement.Organization.Controller;
 
-import com.HumanResourceManagement.application.dto.DepartmentRequest;
+import com.HumanResourceManagement.Organization.DTO.DepartmentRequest;
+import com.HumanResourceManagement.Organization.DTO.DepartmentResponse;
+import com.HumanResourceManagement.Organization.Service.DepartmentService;
+// import com.HumanResourceManagement.application.dto.DepartmentRequest;
 
 //import com.HumanResourceManagement.application.service.EmployeeService;
 import lombok.RequiredArgsConstructor;

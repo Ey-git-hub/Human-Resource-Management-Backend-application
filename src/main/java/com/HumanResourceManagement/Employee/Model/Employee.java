@@ -5,7 +5,11 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.HumanResourceManagement.application.model.Organization.Department;
+import com.HumanResourceManagement.Organization.Model.Department;
+
+// import com.HumanResourceManagement.application.model.Organization.Department;
+
+// import com.HumanResourceManagement.application.model.Organization.Department;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
