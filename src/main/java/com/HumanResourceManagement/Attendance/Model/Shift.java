@@ -1,11 +1,11 @@
 package com.HumanResourceManagement.Attendance.Model;
 
-// package com.HumanResourceManagement.Attendance.entity;
-
-// import com.HumanResourceManagement.shared.audit.Auditable;
-import jakarta.persistence.*;
 import java.time.LocalTime;
+import jakarta.persistence.*;
+// package com.HumanResourceManagement.Attendance.entity;
+import lombok.Data;
 
+// import com.Human
 
 @Data
 @Entity
