@@ -14,7 +14,7 @@ import java.util.UUID;
 public class JobGrade {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
     @Column(nullable = false, unique = true)
