@@ -39,11 +39,8 @@ public class AttendanceService {
 
         if (attendanceRepository.findByEmployeeIdAndDate(request.getEmployeeId(), request.getDate()).isPresent()) {
             throw new IllegalStateException("An attendance record already exists for this employee on this date.");
+            return employee;
         }
-
-    }
-
-    public @Nullable Object updateAttendance(Long id, AttendanceRequest request) {
 
     }
 
