@@ -1,4 +1,4 @@
-package com.HumanResourceManagement.Organization;
+package com.HumanResourceManagement.Organization.DTO;
 
 import lombok.Data;
 

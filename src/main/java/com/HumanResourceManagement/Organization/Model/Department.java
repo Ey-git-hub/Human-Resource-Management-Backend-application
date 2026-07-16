@@ -1,4 +1,4 @@
-package com.HumanResourceManagement.application.model.Organization;
+package com.HumanResourceManagement.Organization.Model;
 
 import jakarta.persistence.*;
 // import lombok.AllArgsConstructor;
