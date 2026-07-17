@@ -29,7 +29,7 @@ public class LeaveResponse {
         response.setId(leave.getId());
         response.setLeaveType(leave.getLeaveType());
         response.setStatus(leave.getStatus());
-        response.setLeaveDate(leave.getStartDate());
+        response.setStartDate(leave.getStartDate());
         response.setEndDate(leave.getEndDate());
         if (leave.getEmployee() != null) {
             response.setEmployeeName(leave.getEmployee().getFirstName() + " " + leave.getEmployee().getLastName());

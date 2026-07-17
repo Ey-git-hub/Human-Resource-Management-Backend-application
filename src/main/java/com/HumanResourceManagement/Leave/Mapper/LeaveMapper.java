@@ -1,9 +1,9 @@
 package com.HumanResourceManagement.Leave.Mapper;
 
 import com.HumanResourceManagement.Leave.DTO.LeaveRequest;
-import com.HumanResourceManagement.Leave.DTO.LeaveRequestDto;
+// import com.HumanResourceManagement.Leave.DTO.LeaveRequestDto;
 import com.HumanResourceManagement.Leave.DTO.LeaveResponse;
-import com.HumanResourceManagement.Leave.DTO.LeaveResponseDto;
+// import com.HumanResourceManagement.Leave.DTO.LeaveResponseDto;
 import com.HumanResourceManagement.Leave.Model.Leave;
 import com.HumanResourceManagement.Employee.Model.Employee;
 import org.springframework.stereotype.Component;
