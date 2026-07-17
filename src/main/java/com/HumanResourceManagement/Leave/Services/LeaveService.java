@@ -53,4 +53,14 @@ public class LeaveService {
                 : leaveRepository.findAll();
         return leaves.stream().map(leaveMapper::toResponseDto).toList();
     }
+
+    public LeaveResponse getLeaveById(Long id) {
+        return leaveMapper.toResponseDto(findLeaveOrThrow(id));
+    }
+
+    private Leave findLeaveOrThrow(Long id) {
+        return leaveRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Leave request not found with id " + id));
+    }
 }
