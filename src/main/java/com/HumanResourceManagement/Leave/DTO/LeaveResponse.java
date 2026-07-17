@@ -18,7 +18,7 @@ public class LeaveResponse {
     private LeaveType leaveType;
     private Long employeeId;
     private String employeeName;
-    private LocalDate leaveDate;
+    private LocalDate startDate;
     private LocalDate endDate;
     private String reason;
     private LeaveStatus status;
