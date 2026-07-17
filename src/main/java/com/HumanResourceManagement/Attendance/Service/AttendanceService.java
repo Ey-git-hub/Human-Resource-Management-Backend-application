@@ -11,7 +11,7 @@ import java.util.List;
 import com.HumanResourceManagement.Attendance.DTO.AttendanceRequest;
 import com.HumanResourceManagement.Attendance.DTO.AttendanceResponse;
 import com.HumanResourceManagement.Attendance.Repository.AttendanceRepository;
-import com.HumanResourceManagement.Employee.Model.Employee;
+// import com.HumanResourceManagement.Employee.Model.Employee;
 import com.HumanResourceManagement.Employee.Repository.EmployeeRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -33,19 +33,19 @@ public class AttendanceService {
         return attendanceRepository.findById(id).map(AttendanceResponse::fromAttendance);
     }
 
-    // public AttendanceResponse addNewAttendance(AttendanceRequest request) {
-    // Employee employee = employeeRepository.findById(request.getEmployeeId())
-    // .orElseThrow(
-    // () -> new IllegalArgumentException("Employee not found with id: " +
-    // request.getEmployeeId()));
+    public AttendanceResponse addNewAttendance(AttendanceRequest request) {
+    Employee employee = employeeRepository.findById(request.getEmployeeId())
+    .orElseThrow(
+    () -> new IllegalArgumentException("Employee not found with id: " +
+    request.getEmployeeId()));
 
-    // if (attendanceRepository.findByEmployeeIdAndDate(request.getEmployeeId(),
-    // request.getDate()).isPresent()) {
-    // throw new IllegalStateException("An attendance record already exists for this
-    // employee on this date.");
-    // return employee;
-    // }
+    if (attendanceRepository.findByEmployeeIdAndDate(request.getEmployeeId(),
+    request.getDate()).isPresent()) {
+    throw new IllegalStateException("An attendance record already exists for this
+    employee on this date.");
+    return employee;
+    }
 
-    // }
+    }
 
 }
