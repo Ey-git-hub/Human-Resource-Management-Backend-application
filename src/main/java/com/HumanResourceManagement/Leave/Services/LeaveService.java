@@ -12,6 +12,7 @@ import com.HumanResourceManagement.Leave.DTO.LeaveRequest;
 import com.HumanResourceManagement.Leave.DTO.LeaveResponse;
 import com.HumanResourceManagement.Leave.Mapper.LeaveMapper;
 import com.HumanResourceManagement.Leave.Model.Leave;
+import com.HumanResourceManagement.Leave.Model.LeaveStatus;
 import com.HumanResourceManagement.Leave.Repository.LeaveRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,12 @@ public class LeaveService {
         if (end.isBefore(start)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "End date cannot be before start date");
         }
+    }
 
+    public List<LeaveResponse> getAllLeaveRequests(LeaveStatus status) {
+        List<Leave> leaves = (status != null)
+                ? leaveRepository.findByStatus(status)
+                : leaveRepository.findAll();
+        return leaves.stream().map(leaveMapper::toResponseDto).toList();
     }
 }
