@@ -1,51 +1,54 @@
-package com.HumanResourceManagement.Attendance.Service;
+// package com.HumanResourceManagement.Attendance.Service;
 
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import org.jspecify.annotations.Nullable;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
-import com.HumanResourceManagement.Attendance.DTO.AttendanceRequest;
-import com.HumanResourceManagement.Attendance.DTO.AttendanceResponse;
-import com.HumanResourceManagement.Attendance.Repository.AttendanceRepository;
-// import com.HumanResourceManagement.Employee.Model.Employee;
-import com.HumanResourceManagement.Employee.Repository.EmployeeRepository;
-
-import lombok.RequiredArgsConstructor;
+// import java.util.Optional;
+// import java.util.stream.Collectors;
 
 // import org.jspecify.annotations.Nullable;
-@Service
-@RequiredArgsConstructor
-public class AttendanceService {
-    private final AttendanceRepository attendanceRepository;
-    private final EmployeeRepository employeeRepository;
+// import org.springframework.stereotype.Service;
 
-    public List<AttendanceResponse> getAllAttendance() {
-        return attendanceRepository.findAll().stream().map(AttendanceResponse::fromAttendance)
-                .collect(Collectors.toList());
+// import java.util.List;
 
-    }
+// import com.HumanResourceManagement.Attendance.DTO.AttendanceRequest;
+// import com.HumanResourceManagement.Attendance.DTO.AttendanceResponse;
+// import
+// com.HumanResourceManagement.Attendance.Repository.AttendanceRepository;
+// // import com.HumanResourceManagement.Employee.Model.Employee;
+// import com.HumanResourceManagement.Employee.Repository.EmployeeRepository;
 
-    public Optional<AttendanceResponse> getAttendanceById(Long id) {
-        return attendanceRepository.findById(id).map(AttendanceResponse::fromAttendance);
-    }
+// import lombok.RequiredArgsConstructor;
 
-    public AttendanceResponse addNewAttendance(AttendanceRequest request) {
-    Employee employee = employeeRepository.findById(request.getEmployeeId())
-    .orElseThrow(
-    () -> new IllegalArgumentException("Employee not found with id: " +
-    request.getEmployeeId()));
+// // import org.jspecify.annotations.Nullable;
+// @Service
+// @RequiredArgsConstructor
+// public class AttendanceService {
+// private final AttendanceRepository attendanceRepository;
+// private final EmployeeRepository employeeRepository;
 
-    if (attendanceRepository.findByEmployeeIdAndDate(request.getEmployeeId(),
-    request.getDate()).isPresent()) {
-    throw new IllegalStateException("An attendance record already exists for this
-    employee on this date.");
-    return employee;
-    }
+// public List<AttendanceResponse> getAllAttendance() {
+// return
+// attendanceRepository.findAll().stream().map(AttendanceResponse::fromAttendance)
+// .collect(Collectors.toList());
 
-    }
+// }
 
-}
+// public Optional<AttendanceResponse> getAttendanceById(Long id) {
+// return
+// attendanceRepository.findById(id).map(AttendanceResponse::fromAttendance);
+// }
+
+// public AttendanceResponse addNewAttendance(AttendanceRequest request) {
+// Employee employee = employeeRepository.findById(request.getEmployeeId())
+// .orElseThrow(
+// () -> new IllegalArgumentException("Employee not found with id: " +
+// request.getEmployeeId()));
+
+// if (attendanceRepository.findByEmployeeIdAndDate(request.getEmployeeId(),
+// request.getDate()).isPresent()) {
+// throw new IllegalStateException("An attendance record already exists for this
+// employee on this date.");
+// return employee;
+// }
+
+// }
+
+// }

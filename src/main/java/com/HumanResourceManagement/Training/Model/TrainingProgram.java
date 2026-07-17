@@ -1,4 +1,4 @@
-package com.HumanResourceManagement.Training;
+package com.HumanResourceManagement.Training.Model;
 
 import jakarta.persistence.*;
 import lombok.Data;

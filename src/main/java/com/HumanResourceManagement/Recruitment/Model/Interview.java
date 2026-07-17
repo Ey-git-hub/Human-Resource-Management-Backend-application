@@ -15,8 +15,8 @@ import com.HumanResourceManagement.Employee.Model.Employee;
 public class Interview {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_application_id", nullable = false)
