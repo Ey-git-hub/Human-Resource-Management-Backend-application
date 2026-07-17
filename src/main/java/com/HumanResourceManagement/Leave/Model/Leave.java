@@ -24,5 +24,4 @@ public class Leave {
     private LocalDate startDate;
     @Column(nullable = false)
     private LocalDate endDate;
-
 }
