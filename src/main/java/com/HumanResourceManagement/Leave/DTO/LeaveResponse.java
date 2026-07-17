@@ -8,7 +8,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
-import com.HumanResourceManagement.Leave.Model.Leave;
+// import com.HumanResourceManagement.Leave.Model.Leave;
 import com.HumanResourceManagement.Leave.Model.LeaveStatus;
 import com.HumanResourceManagement.Leave.Model.LeaveType;
 
@@ -23,17 +23,18 @@ public class LeaveResponse {
     private String reason;
     private LeaveStatus status;
 
-    public static LeaveResponse fromEntity(Leave leave) {
-        LeaveResponse response = new LeaveResponse();
-        response.setId(leave.getId());
-        response.setLeaveType(leave.getLeaveType());
-        response.setStatus(leave.getStatus());
-        response.setLeaveDate(leave.getStartDate());
-        response.setEndDate(leave.getEndDate());
-        if (leave.getEmployee() != null) {
-            response.setEmployeeName(leave.getEmployee().getFirstName() + " " + leave.getEmployee().getLastName());
-            response.setEmployeeId(leave.getEmployee().getId());
-        }
-        return response;
-    }
+    // public static LeaveResponse fromEntity(Leave leave) {
+    // LeaveResponse response = new LeaveResponse();
+    // response.setId(leave.getId());
+    // response.setLeaveType(leave.getLeaveType());
+    // response.setStatus(leave.getStatus());
+    // response.setLeaveDate(leave.getStartDate());
+    // response.setEndDate(leave.getEndDate());
+    // if (leave.getEmployee() != null) {
+    // response.setEmployeeName(leave.getEmployee().getFirstName() + " " +
+    // leave.getEmployee().getLastName());
+    // response.setEmployeeId(leave.getEmployee().getId());
+    // }
+    // return response;
+    // }
 }
