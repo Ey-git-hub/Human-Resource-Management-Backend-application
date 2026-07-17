@@ -1,11 +1,17 @@
 package com.HumanResourceManagement.Leave.Controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.HumanResourceManagement.Leave.DTO.LeaveRequest;
+import com.HumanResourceManagement.Leave.DTO.LeaveResponse;
 import com.HumanResourceManagement.Leave.Services.LeaveService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -14,4 +20,8 @@ import lombok.RequiredArgsConstructor;
 public class LeaveController {
     final private LeaveService leaveService;
 
+    @PostMapping
+    public ResponseEntity<LeaveResponse> createLeaveRequest(@Valid @RequestBody LeaveRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(leaveService.createLeaveRequest(request));
+    }
 }
