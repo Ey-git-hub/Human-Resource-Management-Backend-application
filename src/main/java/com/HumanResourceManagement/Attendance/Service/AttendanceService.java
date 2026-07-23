@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.HumanResourceManagement.Attendance.DTO.AttendanceRequest;
 import com.HumanResourceManagement.Attendance.DTO.AttendanceResponse;
+import com.HumanResourceManagement.Attendance.Model.Attendance;
 import com.HumanResourceManagement.Attendance.Repository.AttendanceRepository;
 import com.HumanResourceManagement.Employee.Model.Employee;
 // import com.HumanResourceManagement.Employee.Model.Employee;
@@ -35,17 +36,29 @@ public class AttendanceService {
     }
 
     public AttendanceResponse addNewAttendance(AttendanceRequest request) {
+        // 1. Verify that the employee exists
         Employee employee = employeeRepository.findById(request.getEmployeeId())
                 .orElseThrow(
-                        () -> new IllegalArgumentException("Employee not found with id: " +
-                                request.getEmployeeId()));
+                        () -> new IllegalArgumentException("Employee not found with id: " + request.getEmployeeId()));
 
-        if (attendanceRepository.findByEmployeeIdAndDate(request.getEmployeeId(),
-                request.getDate()).isPresent()) {
+        // 2. Prevent duplicate entries for the exact same date
+        if (attendanceRepository.findByEmployeeIdAndDate(request.getEmployeeId(), request.getDate()).isPresent()) {
             throw new IllegalStateException("An attendance record already exists for this employee on this date.");
-            return AttendanceResponse;
         }
 
+        // 3. Map properties from request directly onto the entity instance
+        Attendance attendance = new Attendance();
+        attendance.setEmployee(employee);
+        attendance.setDate(request.getDate());
+        attendance.setCheckInTime(request.getCheckInTime());
+        attendance.setCheckOutTime(request.getCheckOutTime());
+        attendance.setStatus(request.getStatus());
+
+        // 4. Save to database
+        Attendance savedAttendance = attendanceRepository.save(attendance);
+
+        // 5. Convert entity to your exact Response format and return
+        return AttendanceResponse.fromAttendance(savedAttendance);
     }
 
 }
