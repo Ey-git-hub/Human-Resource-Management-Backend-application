@@ -64,7 +64,7 @@ public class LeaveService {
                         HttpStatus.NOT_FOUND, "Leave request not found with id " + id));
     }
 
-    public List<LeaveResponseDto> getLeavesByEmployee(Long employeeId) {
+    public List<LeaveResponse> getLeavesByEmployee(Long employeeId) {
         return leaveRepository.findByEmployeeId(employeeId).stream()
                 .map(leaveMapper::toResponseDto)
                 .toList();

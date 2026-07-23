@@ -13,6 +13,7 @@ import com.HumanResourceManagement.Leave.DTO.LeaveResponse;
 import com.HumanResourceManagement.Leave.Model.LeaveStatus;
 import com.HumanResourceManagement.Leave.Services.LeaveService;
 
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 

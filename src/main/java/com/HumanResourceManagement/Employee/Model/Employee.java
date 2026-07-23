@@ -22,13 +22,32 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(name = "employee_code", nullable = false)
+    private String employeeCode;
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(nullable = false)
+    @Column(name = "middle_name", nullable = true)
+    private String middleName;
+    @Column(name = "last_name", nullable = false)
     private String lastName;
-    @Column(nullable = false, unique = true)
+    @Column(name = "date_of_birth", nullable = true)
+    private LocalDate dateOfBirth;
+    @Column(name = "gender", nullable = false)
+    private String gender;
+    @Column(name = "national_id", nullable = true)
+    private String nationalId;
+    @Column(name = "nationality", nullable = true)
+    private String nationality;
+    @Column(name = "marital_status", nullable = true)
+    private String maritalStatus;
+    @Column(name = "email", nullable = true)
     private String email;
-    private String phoneNumber;
+    @Column(name = "phone", nullable = true)
+    private String phone;
+    @Column(name = "address", nullable = true)
+    private String address;
+    @Column(name = "photo_url", nullable = true)
+    private String photoUrl;
     private String JobTitle;
 
     // combining department entity to employee
