@@ -31,7 +31,7 @@
 // return ResponseEntity.ok(attendanceService.getAllAttendance());
 // }
 
-// @GetMapping("/{id}")
+// // @GetMapping("/{id}")
 // public ResponseEntity<AttendanceResponse> getAttendanceById(@PathVariable
 // Long id) {
 // Optional<AttendanceResponse> result =

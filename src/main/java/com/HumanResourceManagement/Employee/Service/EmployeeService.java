@@ -61,27 +61,48 @@ public class EmployeeService {
     public EmployeeResponse UpdateEmployee(Long id, EmployeeRequest request) {
         Employee existing = employeeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Employee not Found with id: " + id));
+
+        // Mandatory/Core Properties (Fixes the SQL null error)
+        existing.setEmployeeCode(request.getEmployeeCode()); // <-- CRITICAL: Prevents the database crash
         existing.setFirstName(request.getFirstName());
+        existing.setMiddleName(request.getMiddleName());
         existing.setLastName(request.getLastName());
+        existing.setGender(request.getGender());
+
+        // Dates and Demographics
+        existing.setDateOfBirth(request.getDateOfBirth());
+        existing.setNationalId(request.getNationalId());
+        existing.setNationality(request.getNationality());
+        existing.setMaritalStatus(request.getMaritalStatus());
+
+        // Contact & Profile info
         existing.setPhoneNumber(request.getPhoneNumber());
+        existing.setAddress(request.getAddress());
+        existing.setPhotoUrl(request.getPhotoUrl());
+
+        // Job Details
         existing.setJobTitle(request.getJobTitle());
         existing.setSalary(request.getSalary());
         existing.setHireDate(request.getHireDate());
         existing.setStatus(request.getStatus());
+
+        // Unique Email verification step
         if (!existing.getEmail().equals(request.getEmail())) {
             if (employeeRepository.existsByEmail(request.getEmail())) {
-                throw new IllegalArgumentException("employee already exists with this email :" + request.getEmail());
+                throw new IllegalArgumentException("employee already exists with this email: " + request.getEmail());
             }
             existing.setEmail(request.getEmail());
         }
+
+        // Related Entities mappings
         if (request.getDepartmentId() != null) {
             Department department = departmentRepository.findById(request.getDepartmentId())
                     .orElseThrow(() -> new IllegalArgumentException(
                             "department is not found with id: " + request.getDepartmentId()));
             existing.setDepartment(department);
         }
-        return EmployeeResponse.fromEmployee(employeeRepository.save(existing));
 
+        return EmployeeResponse.fromEmployee(employeeRepository.save(existing));
     }
 
     public void deleteEmployee(Long id) {
