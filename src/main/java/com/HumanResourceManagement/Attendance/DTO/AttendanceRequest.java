@@ -19,5 +19,4 @@ public class AttendanceRequest {
     private LocalTime checkInTime;
     private LocalTime checkOutTime;
     private AttendanceStatus status;
-
 }
