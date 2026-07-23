@@ -43,7 +43,7 @@ public class Employee {
     @Column(name = "email", nullable = true)
     private String email;
     @Column(name = "phone", nullable = true)
-    private String phone;
+    private String phoneNumber;
     @Column(name = "address", nullable = true)
     private String address;
     @Column(name = "photo_url", nullable = true)
