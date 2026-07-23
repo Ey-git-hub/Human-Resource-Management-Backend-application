@@ -3,6 +3,7 @@ package com.HumanResourceManagement.Employee.Service;
 import com.HumanResourceManagement.Employee.DTO.EmployeeRequest;
 import com.HumanResourceManagement.Employee.DTO.EmployeeResponse;
 import com.HumanResourceManagement.Employee.Model.Employee;
+import com.HumanResourceManagement.Employee.Model.EmployeeStatus;
 import com.HumanResourceManagement.Employee.Repository.EmployeeRepository;
 import com.HumanResourceManagement.Organization.Model.Department;
 import com.HumanResourceManagement.Organization.Repository.DepartmentRepository;
@@ -35,74 +36,74 @@ public class EmployeeService {
     }
 
     public EmployeeResponse createEmployee(EmployeeRequest request) {
+        // Check if employee already exists with email
         if (employeeRepository.existsByEmail(request.getEmail())) {
-            throw new IllegalArgumentException("employee already exists with this email: " + request.getEmail());
-
+            throw new IllegalArgumentException("Employee already exists with this email: " + request.getEmail());
         }
+
         Employee employee = new Employee();
+
+        // CRITICAL FIX: Add this line to transfer the code from the request to the
+        // database entity
+        employee.setEmployeeCode(request.getEmployeeCode());
+
+        // Set all remaining mandatory properties
         employee.setFirstName(request.getFirstName());
+        employee.setMiddleName(request.getMiddleName());
         employee.setLastName(request.getLastName());
+        employee.setGender(request.getGender());
+        employee.setDateOfBirth(request.getDateOfBirth());
+        employee.setNationalId(request.getNationalId());
+        employee.setNationality(request.getNationality());
+        employee.setMaritalStatus(request.getMaritalStatus());
         employee.setEmail(request.getEmail());
         employee.setPhoneNumber(request.getPhoneNumber());
+        employee.setAddress(request.getAddress());
+        employee.setPhotoUrl(request.getPhotoUrl());
         employee.setJobTitle(request.getJobTitle());
         employee.setSalary(request.getSalary());
         employee.setHireDate(request.getHireDate());
-        employee.setStatus(request.getStatus());
+
+        // Set default status if missing
+        employee.setStatus(request.getStatus() != null ? request.getStatus() : EmployeeStatus.ACTIVE);
+
+        // Set Department relationship
         if (request.getDepartmentId() != null) {
             Department department = departmentRepository.findById(request.getDepartmentId())
                     .orElseThrow(() -> new IllegalArgumentException(
-                            "department not found with id: " + request.getDepartmentId()));
+                            "Department not found with id: " + request.getDepartmentId()));
             employee.setDepartment(department);
         }
-        return EmployeeResponse.fromEmployee(employeeRepository.save(employee));
 
+        // Line 57: Save operation will no longer throw an exception
+        Employee savedEmployee = employeeRepository.save(employee);
+        return EmployeeResponse.fromEmployee(savedEmployee);
     }
 
     public EmployeeResponse UpdateEmployee(Long id, EmployeeRequest request) {
         Employee existing = employeeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Employee not Found with id: " + id));
-
-        // Mandatory/Core Properties (Fixes the SQL null error)
-        existing.setEmployeeCode(request.getEmployeeCode()); // <-- CRITICAL: Prevents the database crash
         existing.setFirstName(request.getFirstName());
-        existing.setMiddleName(request.getMiddleName());
         existing.setLastName(request.getLastName());
-        existing.setGender(request.getGender());
-
-        // Dates and Demographics
-        existing.setDateOfBirth(request.getDateOfBirth());
-        existing.setNationalId(request.getNationalId());
-        existing.setNationality(request.getNationality());
-        existing.setMaritalStatus(request.getMaritalStatus());
-
-        // Contact & Profile info
         existing.setPhoneNumber(request.getPhoneNumber());
-        existing.setAddress(request.getAddress());
-        existing.setPhotoUrl(request.getPhotoUrl());
-
-        // Job Details
         existing.setJobTitle(request.getJobTitle());
         existing.setSalary(request.getSalary());
         existing.setHireDate(request.getHireDate());
         existing.setStatus(request.getStatus());
-
-        // Unique Email verification step
         if (!existing.getEmail().equals(request.getEmail())) {
             if (employeeRepository.existsByEmail(request.getEmail())) {
-                throw new IllegalArgumentException("employee already exists with this email: " + request.getEmail());
+                throw new IllegalArgumentException("employee already exists with this email :" + request.getEmail());
             }
             existing.setEmail(request.getEmail());
         }
-
-        // Related Entities mappings
         if (request.getDepartmentId() != null) {
             Department department = departmentRepository.findById(request.getDepartmentId())
                     .orElseThrow(() -> new IllegalArgumentException(
                             "department is not found with id: " + request.getDepartmentId()));
             existing.setDepartment(department);
         }
-
         return EmployeeResponse.fromEmployee(employeeRepository.save(existing));
+
     }
 
     public void deleteEmployee(Long id) {
