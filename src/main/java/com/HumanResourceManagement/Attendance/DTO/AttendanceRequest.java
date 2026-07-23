@@ -6,17 +6,21 @@ import java.time.LocalTime;
 
 import com.HumanResourceManagement.Attendance.Model.AttendanceStatus;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 // import com.HumanResourceManagement.application.model.Employee;
 @Data
 public class AttendanceRequest {
-
-    private Long id;
-    private String employeeName;
+    @NotNull(message = "Employee ID is required")
     private Long employeeId;
+
+    @NotNull(message = "Date is required")
     private LocalDate date;
+
     private LocalTime checkInTime;
     private LocalTime checkOutTime;
+
+    @NotNull(message = "Attendance status is required")
     private AttendanceStatus status;
 }
