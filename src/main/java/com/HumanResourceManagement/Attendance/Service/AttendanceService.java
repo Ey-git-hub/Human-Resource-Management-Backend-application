@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 // import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 // import org.jspecify.annotations.Nullable;
 @Service
 @RequiredArgsConstructor
+
 public class AttendanceService {
     private final AttendanceRepository attendanceRepository;
     private final EmployeeRepository employeeRepository;
@@ -35,6 +37,7 @@ public class AttendanceService {
         return attendanceRepository.findById(id).map(AttendanceResponse::fromAttendance);
     }
 
+    @Transactional
     public AttendanceResponse addNewAttendance(AttendanceRequest request) {
         // 1. Verify that the employee exists
         Employee employee = employeeRepository.findById(request.getEmployeeId())
