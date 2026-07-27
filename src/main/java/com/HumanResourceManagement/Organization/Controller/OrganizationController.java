@@ -20,7 +20,7 @@ public class OrganizationController {
     private final OrganizationService organizationService;
 
     @PostMapping
-    public ResponseEntity<OrganizationResponse> create(@Valid @RequestBody OrganizationRequestDto dto) {
+    public ResponseEntity<OrganizationResponse> create(@Valid @RequestBody OrganizationRequest dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(organizationService.create(dto));
     }
 

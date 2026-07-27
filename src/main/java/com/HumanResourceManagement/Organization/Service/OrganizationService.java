@@ -19,7 +19,6 @@ public class OrganizationService {
 
     private final OrganizationRepository organizationRepository;
 
-    @Override
     public OrganizationResponse create(OrganizationRequest dto) {
         Organization entity = Organization.builder()
                 .name(dto.getName())
@@ -39,7 +38,6 @@ public class OrganizationService {
         return toResponseDto(saved);
     }
 
-    @Override
     @Transactional(readOnly = true)
     public OrganizationResponse getById(Long id) {
         Organization entity = organizationRepository.findById(id)
@@ -47,7 +45,6 @@ public class OrganizationService {
         return toResponseDto(entity);
     }
 
-    @Override
     @Transactional(readOnly = true)
     public List<OrganizationResponse> getAll() {
         return organizationRepository.findAll().stream()
@@ -55,7 +52,6 @@ public class OrganizationService {
                 .collect(Collectors.toList());
     }
 
-    @Override
     public OrganizationResponse update(Long id, OrganizationRequest dto) {
         Organization entity = organizationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Organization not found with id: " + id));
@@ -75,7 +71,6 @@ public class OrganizationService {
         return toResponseDto(saved);
     }
 
-    @Override
     public void delete(Long id) {
         if (!organizationRepository.existsById(id)) {
             throw new RuntimeException("Organization not found with id: " + id);
@@ -83,23 +78,23 @@ public class OrganizationService {
         organizationRepository.deleteById(id);
     }
 
-    private OrganizationResponse toResponseDto(Organization entity) {
-        return OrganizationResponse.builder()
-                .id(entity.getId())
-                .name(entity.getName())
-                .legalName(entity.getLegalName())
-                .registrationNumber(entity.getRegistrationNumber())
-                .taxId(entity.getTaxId())
-                .industry(entity.getIndustry())
-                .address(entity.getAddress())
-                .phone(entity.getPhone())
-                .email(entity.getEmail())
-                .website(entity.getWebsite())
-                .logoUrl(entity.getLogoUrl())
-                .foundedDate(entity.getFoundedDate())
+    // private OrganizationResponse toResponseDto(Organization entity) {
+    // return OrganizationResponse.builder()
+    // .id(entity.getId())
+    // .name(entity.getName())
+    // .legalName(entity.getLegalName())
+    // .registrationNumber(entity.getRegistrationNumber())
+    // .taxId(entity.getTaxId())
+    // .industry(entity.getIndustry())
+    // .address(entity.getAddress())
+    // .phone(entity.getPhone())
+    // .email(entity.getEmail())
+    // .website(entity.getWebsite())
+    // .logoUrl(entity.getLogoUrl())
+    // .foundedDate(entity.getFoundedDate())
 
-                .createdAt(entity.getCreatedAt())
-                .updatedAt(entity.getUpdatedAt())
-                .build();
-    }
+    // .createdAt(entity.getCreatedAt())
+    // .updatedAt(entity.getUpdatedAt())
+    // .build();
+    // }
 }
