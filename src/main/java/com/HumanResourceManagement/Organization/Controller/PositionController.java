@@ -1,13 +1,14 @@
-package com.hrms.organization.controller;
+package com.HumanResourceManagement.Organization.Controller;
 
-import com.hrms.organization.dto.PositionRequestDto;
-import com.hrms.organization.dto.PositionResponseDto;
-import com.hrms.organization.service.PositionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.HumanResourceManagement.Organization.DTO.PositionRequest;
+import com.HumanResourceManagement.Organization.DTO.PositionResponse;
+import com.HumanResourceManagement.Organization.Service.PositionService;
 
 import java.util.List;
 
@@ -19,22 +20,22 @@ public class PositionController {
     private final PositionService positionService;
 
     @PostMapping
-    public ResponseEntity<PositionResponseDto> create(@Valid @RequestBody PositionRequestDto dto) {
+    public ResponseEntity<PositionResponse> create(@Valid @RequestBody PositionRequest dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(positionService.create(dto));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PositionResponseDto> getById(@PathVariable Long id) {
+    public ResponseEntity<PositionResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(positionService.getById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<PositionResponseDto>> getAll() {
+    public ResponseEntity<List<PositionResponse>> getAll() {
         return ResponseEntity.ok(positionService.getAll());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PositionResponseDto> update(@PathVariable Long id, @Valid @RequestBody PositionRequestDto dto) {
+    public ResponseEntity<PositionResponse> update(@PathVariable Long id, @Valid @RequestBody PositionRequest dto) {
         return ResponseEntity.ok(positionService.update(id, dto));
     }
 
