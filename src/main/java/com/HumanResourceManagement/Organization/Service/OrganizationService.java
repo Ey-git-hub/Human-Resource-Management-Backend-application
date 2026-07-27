@@ -4,6 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.HumanResourceManagement.Organization.DTO.OrganizationRequest;
+import com.HumanResourceManagement.Organization.DTO.OrganizationResponse;
+import com.HumanResourceManagement.Organization.Model.Organization;
+import com.HumanResourceManagement.Organization.Repository.OrganizationRepository;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +20,7 @@ public class OrganizationService {
     private final OrganizationRepository organizationRepository;
 
     @Override
-    public OrganizationResponseDto create(OrganizationRequestDto dto) {
+    public OrganizationResponse create(OrganizationRequest dto) {
         Organization entity = Organization.builder()
                 .name(dto.getName())
                 .legalName(dto.getLegalName())
@@ -36,7 +41,7 @@ public class OrganizationService {
 
     @Override
     @Transactional(readOnly = true)
-    public OrganizationResponseDto getById(Long id) {
+    public OrganizationResponse getById(Long id) {
         Organization entity = organizationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Organization not found with id: " + id));
         return toResponseDto(entity);
@@ -44,14 +49,14 @@ public class OrganizationService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrganizationResponseDto> getAll() {
+    public List<OrganizationResponse> getAll() {
         return organizationRepository.findAll().stream()
                 .map(this::toResponseDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public OrganizationResponseDto update(Long id, OrganizationRequestDto dto) {
+    public OrganizationResponse update(Long id, OrganizationRequest dto) {
         Organization entity = organizationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Organization not found with id: " + id));
         entity.setName(dto.getName());
@@ -78,8 +83,8 @@ public class OrganizationService {
         organizationRepository.deleteById(id);
     }
 
-    private OrganizationResponseDto toResponseDto(Organization entity) {
-        return OrganizationResponseDto.builder()
+    private OrganizationResponse toResponseDto(Organization entity) {
+        return OrganizationResponse.builder()
                 .id(entity.getId())
                 .name(entity.getName())
                 .legalName(entity.getLegalName())
