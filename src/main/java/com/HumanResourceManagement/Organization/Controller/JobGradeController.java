@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.HumanResourceManagement.Organization.DTO.JobGradeRequest;
 import com.HumanResourceManagement.Organization.DTO.JobGradeResponse;
+import com.HumanResourceManagement.Organization.Service.JobGradeService;
 
 import java.util.List;
 
