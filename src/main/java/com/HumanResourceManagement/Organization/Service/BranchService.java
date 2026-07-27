@@ -1,15 +1,15 @@
 package com.HumanResourceManagement.Organization.Service;
 
-import com.hrms.organization.dto.BranchRequestDto;
-import com.hrms.organization.dto.BranchResponseDto;
-import com.hrms.organization.entity.Branch;
-import com.hrms.organization.repository.BranchRepository;
-import com.hrms.organization.service.BranchService;
-import com.hrms.organization.repository.OrganizationRepository;
-import com.hrms.organization.entity.Organization;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.HumanResourceManagement.Organization.DTO.BranchRequest;
+import com.HumanResourceManagement.Organization.DTO.BranchResponse;
+import com.HumanResourceManagement.Organization.Model.Branch;
+import com.HumanResourceManagement.Organization.Model.Organization;
+import com.HumanResourceManagement.Organization.Repository.BranchRepository;
+import com.HumanResourceManagement.Organization.Repository.OrganizationRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,8 +22,7 @@ public class BranchService {
     private final BranchRepository branchRepository;
     private final OrganizationRepository organizationRepository;
 
-    @Override
-    public BranchResponseDto create(BranchRequestDto dto) {
+    public BranchResponse create(BranchRequest dto) {
         Branch entity = Branch.builder()
                 .name(dto.getName())
                 .code(dto.getCode())
@@ -43,24 +42,21 @@ public class BranchService {
         return toResponseDto(saved);
     }
 
-    @Override
     @Transactional(readOnly = true)
-    public BranchResponseDto getById(Long id) {
+    public BranchResponse getById(Long id) {
         Branch entity = branchRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Branch not found with id: " + id));
         return toResponseDto(entity);
     }
 
-    @Override
     @Transactional(readOnly = true)
-    public List<BranchResponseDto> getAll() {
+    public List<BranchResponse> getAll() {
         return branchRepository.findAll().stream()
                 .map(this::toResponseDto)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public BranchResponseDto update(Long id, BranchRequestDto dto) {
+    public BranchResponse update(Long id, BranchRequest dto) {
         Branch entity = branchRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Branch not found with id: " + id));
         entity.setName(dto.getName());
@@ -80,7 +76,6 @@ public class BranchService {
         return toResponseDto(saved);
     }
 
-    @Override
     public void delete(Long id) {
         if (!branchRepository.existsById(id)) {
             throw new RuntimeException("Branch not found with id: " + id);
@@ -88,22 +83,23 @@ public class BranchService {
         branchRepository.deleteById(id);
     }
 
-    private BranchResponseDto toResponseDto(Branch entity) {
-        return BranchResponseDto.builder()
-                .id(entity.getId())
-                .name(entity.getName())
-                .code(entity.getCode())
-                .address(entity.getAddress())
-                .city(entity.getCity())
-                .region(entity.getRegion())
-                .country(entity.getCountry())
-                .phone(entity.getPhone())
-                .email(entity.getEmail())
-                .headquarters(entity.getHeadquarters())
-                .status(entity.getStatus())
-                .organizationId(entity.getOrganization() != null ? entity.getOrganization().getId() : null)
-                .createdAt(entity.getCreatedAt())
-                .updatedAt(entity.getUpdatedAt())
-                .build();
-    }
+    // private BranchResponse toResponseDto(Branch entity) {
+    // return BranchResponse.builder()
+    // .id(entity.getId())
+    // .name(entity.getName())
+    // .code(entity.getCode())
+    // .address(entity.getAddress())
+    // .city(entity.getCity())
+    // .region(entity.getRegion())
+    // .country(entity.getCountry())
+    // .phone(entity.getPhone())
+    // .email(entity.getEmail())
+    // .headquarters(entity.getHeadquarters())
+    // .status(entity.getStatus())
+    // .organizationId(entity.getOrganization() != null ?
+    // entity.getOrganization().getId() : null)
+    // .createdAt(entity.getCreatedAt())
+    // .updatedAt(entity.getUpdatedAt())
+    // .build();
+    // }
 }
