@@ -1,9 +1,8 @@
-package com.hrms.organization.repository;
+package com.HumanResourceManagement.Organization.Repository;
 
-import com.hrms.organization.entity.Position;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
+import com.HumanResourceManagement.Organization.Model.Position;
+
 public interface PositionRepository extends JpaRepository<Position, Long> {
 }
