@@ -1,14 +1,13 @@
 package com.HumanResourceManagement.Organization.Controller;
 
+import com.HumanResourceManagement.Organization.DTO.OrganizationRequest;
+import com.HumanResourceManagement.Organization.DTO.OrganizationResponse;
+import com.HumanResourceManagement.Organization.Service.OrganizationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.HumanResourceManagement.Organization.DTO.OrganizationRequest;
-import com.HumanResourceManagement.Organization.DTO.OrganizationResponse;
-import com.HumanResourceManagement.Organization.Service.OrganizationService;
 
 import java.util.List;
 
@@ -20,29 +19,31 @@ public class OrganizationController {
     private final OrganizationService organizationService;
 
     @PostMapping
-    public ResponseEntity<OrganizationResponse> create(@Valid @RequestBody OrganizationRequest dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(organizationService.create(dto));
+    public ResponseEntity<OrganizationResponse> createOrganization(@Valid @RequestBody OrganizationRequest requestDto) {
+        OrganizationResponse createdOrganization = organizationService.createOrganization(requestDto);
+        return new ResponseEntity<>(createdOrganization, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrganizationResponse> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(organizationService.getById(id));
+    public ResponseEntity<OrganizationResponse> getOrganizationById(@PathVariable Long id) {
+        return ResponseEntity.ok(organizationService.getOrganizationById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<OrganizationResponse>> getAll() {
-        return ResponseEntity.ok(organizationService.getAll());
+    public ResponseEntity<List<OrganizationResponse>> getAllOrganizations() {
+        return ResponseEntity.ok(organizationService.getAllOrganizations());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrganizationResponse> update(@PathVariable Long id,
-            @Valid @RequestBody OrganizationRequest dto) {
-        return ResponseEntity.ok(organizationService.update(id, dto));
+    public ResponseEntity<OrganizationResponse> updateOrganization(
+            @PathVariable Long id,
+            @Valid @RequestBody OrganizationRequest requestDto) {
+        return ResponseEntity.ok(organizationService.updateOrganization(id, requestDto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        organizationService.delete(id);
+    public ResponseEntity<Void> deleteOrganization(@PathVariable Long id) {
+        organizationService.deleteOrganization(id);
         return ResponseEntity.noContent().build();
     }
 }
