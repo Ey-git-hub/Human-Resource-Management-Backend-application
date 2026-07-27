@@ -1,15 +1,14 @@
-package com.hrms.organization.dto;
+package com.HumanResourceManagement.Organization.DTO;
 
 import lombok.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+
 public class PositionRequest {
 
     @NotNull(message = "departmentId is required")
