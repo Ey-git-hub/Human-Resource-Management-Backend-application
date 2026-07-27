@@ -1,17 +1,17 @@
 package com.HumanResourceManagement.Organization.Service;
 
-import com.hrms.organization.dto.PositionRequestDto;
-import com.hrms.organization.dto.PositionResponseDto;
-import com.hrms.organization.entity.Position;
-import com.hrms.organization.repository.PositionRepository;
-import com.hrms.organization.service.PositionService;
-import com.hrms.organization.repository.DepartmentRepository;
-import com.hrms.organization.repository.JobGradeRepository;
-import com.hrms.organization.entity.Department;
-import com.hrms.organization.entity.JobGrade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.HumanResourceManagement.Organization.DTO.PositionRequest;
+import com.HumanResourceManagement.Organization.DTO.PositionResponse;
+import com.HumanResourceManagement.Organization.Model.Department;
+import com.HumanResourceManagement.Organization.Model.JobGrade;
+import com.HumanResourceManagement.Organization.Model.Position;
+import com.HumanResourceManagement.Organization.Repository.DepartmentRepository;
+import com.HumanResourceManagement.Organization.Repository.JobGradeRepository;
+import com.HumanResourceManagement.Organization.Repository.PositionRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,8 +25,7 @@ public class PositionService {
         private final DepartmentRepository departmentRepository;
         private final JobGradeRepository jobGradeRepository;
 
-        @Override
-        public PositionResponseDto create(PositionRequestDto dto) {
+        public PositionResponse create(PositionRequest dto) {
                 Position entity = Position.builder()
                                 .title(dto.getTitle())
                                 .code(dto.getCode())
@@ -47,24 +46,22 @@ public class PositionService {
                 return toResponseDto(saved);
         }
 
-        @Override
         @Transactional(readOnly = true)
-        public PositionResponseDto getById(Long id) {
+        public PositionResponse getById(Long id) {
                 Position entity = positionRepository.findById(id)
                                 .orElseThrow(() -> new RuntimeException("Position not found with id: " + id));
                 return toResponseDto(entity);
         }
 
-        @Override
         @Transactional(readOnly = true)
-        public List<PositionResponseDto> getAll() {
+        public List<PositionResponse> getAll() {
                 return positionRepository.findAll().stream()
                                 .map(this::toResponseDto)
                                 .collect(Collectors.toList());
         }
 
         @Override
-        public PositionResponseDto update(Long id, PositionRequestDto dto) {
+        public PositionResponse update(Long id, PositionRequest dto) {
                 Position entity = positionRepository.findById(id)
                                 .orElseThrow(() -> new RuntimeException("Position not found with id: " + id));
                 entity.setTitle(dto.getTitle());
@@ -85,7 +82,6 @@ public class PositionService {
                 return toResponseDto(saved);
         }
 
-        @Override
         public void delete(Long id) {
                 if (!positionRepository.existsById(id)) {
                         throw new RuntimeException("Position not found with id: " + id);
@@ -93,19 +89,21 @@ public class PositionService {
                 positionRepository.deleteById(id);
         }
 
-        private PositionResponseDto toResponseDto(Position entity) {
-                return PositionResponseDto.builder()
-                                .id(entity.getId())
-                                .title(entity.getTitle())
-                                .code(entity.getCode())
-                                .description(entity.getDescription())
-                                .minSalary(entity.getMinSalary())
-                                .maxSalary(entity.getMaxSalary())
-                                .status(entity.getStatus())
-                                .departmentId(entity.getDepartment() != null ? entity.getDepartment().getId() : null)
-                                .jobGradeId(entity.getJobGrade() != null ? entity.getJobGrade().getId() : null)
-                                .createdAt(entity.getCreatedAt())
-                                .updatedAt(entity.getUpdatedAt())
-                                .build();
-        }
+        // private PositionResponse toResponseDto(Position entity) {
+        // return PositionResponseDto.builder()
+        // .id(entity.getId())
+        // .title(entity.getTitle())
+        // .code(entity.getCode())
+        // .description(entity.getDescription())
+        // .minSalary(entity.getMinSalary())
+        // .maxSalary(entity.getMaxSalary())
+        // .status(entity.getStatus())
+        // .departmentId(entity.getDepartment() != null ? entity.getDepartment().getId()
+        // : null)
+        // .jobGradeId(entity.getJobGrade() != null ? entity.getJobGrade().getId() :
+        // null)
+        // .createdAt(entity.getCreatedAt())
+        // .updatedAt(entity.getUpdatedAt())
+        // .build();
+        // }
 }
