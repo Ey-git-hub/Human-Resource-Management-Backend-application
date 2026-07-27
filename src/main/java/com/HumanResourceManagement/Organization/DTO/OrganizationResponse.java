@@ -28,23 +28,23 @@ public class OrganizationResponse {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    private OrganizationResponse fromEntiity(Organization entity) {
-        return OrganizationResponse.builder()
-                .id(entity.getId())
-                .name(entity.getName())
-                .legalName(entity.getLegalName())
-                .registrationNumber(entity.getRegistrationNumber())
-                .taxId(entity.getTaxId())
-                .industry(entity.getIndustry())
-                .address(entity.getAddress())
-                .phone(entity.getPhone())
-                .email(entity.getEmail())
-                .website(entity.getWebsite())
-                .logoUrl(entity.getLogoUrl())
-                .foundedDate(entity.getFoundedDate())
+    // private OrganizationResponse fromEntiity(Organization entity) {
+    // return OrganizationResponse.builder()
+    // .id(entity.getId())
+    // .name(entity.getName())
+    // .legalName(entity.getLegalName())
+    // .registrationNumber(entity.getRegistrationNumber())
+    // .taxId(entity.getTaxId())
+    // .industry(entity.getIndustry())
+    // .address(entity.getAddress())
+    // .phone(entity.getPhone())
+    // .email(entity.getEmail())
+    // .website(entity.getWebsite())
+    // .logoUrl(entity.getLogoUrl())
+    // .foundedDate(entity.getFoundedDate())
 
-                .createdAt(entity.getCreatedAt())
-                .updatedAt(entity.getUpdatedAt())
-                .build();
-    }
+    // .createdAt(entity.getCreatedAt())
+    // .updatedAt(entity.getUpdatedAt())
+    // .build();
+    // }
 }
