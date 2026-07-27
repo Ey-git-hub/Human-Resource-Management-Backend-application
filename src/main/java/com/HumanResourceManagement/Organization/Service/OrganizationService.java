@@ -1,11 +1,4 @@
-package com.hrms.organization.service.impl;
-
-import com.hrms.organization.dto.OrganizationRequestDto;
-import com.hrms.organization.dto.OrganizationResponseDto;
-import com.hrms.organization.entity.Organization;
-import com.hrms.organization.repository.OrganizationRepository;
-import com.hrms.organization.service.OrganizationService;
-
+package com.HumanResourceManagement.Organization.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,10 +10,9 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class OrganizationServiceImpl implements OrganizationService {
+public class OrganizationService {
 
     private final OrganizationRepository organizationRepository;
-
 
     @Override
     public OrganizationResponseDto create(OrganizationRequestDto dto) {
