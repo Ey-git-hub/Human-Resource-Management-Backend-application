@@ -1,9 +1,9 @@
-package com.hrms.organization.repository;
+package com.HumanResourceManagement.Organization.Repository;
 
-import com.hrms.organization.entity.Organization;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+// import org.springframework.stereotype.Repository;
 
-@Repository
+import com.HumanResourceManagement.Organization.Model.Organization;
+
 public interface OrganizationRepository extends JpaRepository<Organization, Long> {
 }
