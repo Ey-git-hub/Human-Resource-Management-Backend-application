@@ -1,13 +1,14 @@
-package com.hrms.organization.controller;
+package com.HumanResourceManagement.Organization.Controller;
 
-import com.hrms.organization.dto.OrganizationRequestDto;
-import com.hrms.organization.dto.OrganizationResponseDto;
-import com.hrms.organization.service.OrganizationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.HumanResourceManagement.Organization.DTO.OrganizationRequest;
+import com.HumanResourceManagement.Organization.DTO.OrganizationResponse;
+import com.HumanResourceManagement.Organization.Service.OrganizationService;
 
 import java.util.List;
 
@@ -19,22 +20,23 @@ public class OrganizationController {
     private final OrganizationService organizationService;
 
     @PostMapping
-    public ResponseEntity<OrganizationResponseDto> create(@Valid @RequestBody OrganizationRequestDto dto) {
+    public ResponseEntity<OrganizationResponse> create(@Valid @RequestBody OrganizationRequestDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(organizationService.create(dto));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrganizationResponseDto> getById(@PathVariable Long id) {
+    public ResponseEntity<OrganizationResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(organizationService.getById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<OrganizationResponseDto>> getAll() {
+    public ResponseEntity<List<OrganizationResponse>> getAll() {
         return ResponseEntity.ok(organizationService.getAll());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrganizationResponseDto> update(@PathVariable Long id, @Valid @RequestBody OrganizationRequestDto dto) {
+    public ResponseEntity<OrganizationResponse> update(@PathVariable Long id,
+            @Valid @RequestBody OrganizationRequest dto) {
         return ResponseEntity.ok(organizationService.update(id, dto));
     }
 
