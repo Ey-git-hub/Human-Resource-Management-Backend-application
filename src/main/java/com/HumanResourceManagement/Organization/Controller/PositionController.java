@@ -1,14 +1,13 @@
 package com.HumanResourceManagement.Organization.Controller;
 
+import com.HumanResourceManagement.Organization.DTO.PositionRequest;
+import com.HumanResourceManagement.Organization.DTO.PositionResponse;
+import com.HumanResourceManagement.Organization.Service.PositionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.HumanResourceManagement.Organization.DTO.PositionRequest;
-import com.HumanResourceManagement.Organization.DTO.PositionResponse;
-import com.HumanResourceManagement.Organization.Service.PositionService;
 
 import java.util.List;
 
@@ -20,28 +19,36 @@ public class PositionController {
     private final PositionService positionService;
 
     @PostMapping
-    public ResponseEntity<PositionResponse> create(@Valid @RequestBody PositionRequest dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(positionService.create(dto));
+    public ResponseEntity<PositionResponse> createPosition(@Valid @RequestBody PositionRequest requestDto) {
+        PositionResponse createdPosition = positionService.createPosition(requestDto);
+        return new ResponseEntity<>(createdPosition, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PositionResponse> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(positionService.getById(id));
+    public ResponseEntity<PositionResponse> getPositionById(@PathVariable Long id) {
+        return ResponseEntity.ok(positionService.getPositionById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<PositionResponse>> getAll() {
-        return ResponseEntity.ok(positionService.getAll());
+    public ResponseEntity<List<PositionResponse>> getAllPositions() {
+        return ResponseEntity.ok(positionService.getAllPositions());
+    }
+
+    @GetMapping("/department/{departmentId}")
+    public ResponseEntity<List<PositionResponse>> getPositionsByDepartment(@PathVariable Long departmentId) {
+        return ResponseEntity.ok(positionService.getPositionsByDepartment(departmentId));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PositionResponse> update(@PathVariable Long id, @Valid @RequestBody PositionRequest dto) {
-        return ResponseEntity.ok(positionService.update(id, dto));
+    public ResponseEntity<PositionResponse> updatePosition(
+            @PathVariable Long id,
+            @Valid @RequestBody PositionRequest requestDto) {
+        return ResponseEntity.ok(positionService.updatePosition(id, requestDto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        positionService.delete(id);
+    public ResponseEntity<Void> deletePosition(@PathVariable Long id) {
+        positionService.deletePosition(id);
         return ResponseEntity.noContent().build();
     }
 }
