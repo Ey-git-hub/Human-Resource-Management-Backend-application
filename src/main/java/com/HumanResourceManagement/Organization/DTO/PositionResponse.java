@@ -1,14 +1,13 @@
-package com.hrms.organization.dto;
+package com.HumanResourceManagement.Organization.DTO;
 
 import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+
 public class PositionResponse {
 
     private Long id;
