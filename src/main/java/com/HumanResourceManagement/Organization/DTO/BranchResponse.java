@@ -1,19 +1,17 @@
 package com.HumanResourceManagement.Organization.DTO;
 
-import lombok.*;
+import com.HumanResourceManagement.Organization.Model.Branch;
+import com.HumanResourceManagement.Organization.Model.Branch.Status;
+import lombok.Builder;
+import lombok.Data;
 
-import java.time.LocalDateTime;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Builder
 public class BranchResponse {
 
     private Long id;
-
     private Long organizationId;
+    private String organizationName;
     private String name;
     private String code;
     private String address;
@@ -22,9 +20,28 @@ public class BranchResponse {
     private String country;
     private String phone;
     private String email;
-    private Boolean headquarters;
-    private String status;
+    private boolean isHeadquarters;
+    private Status status;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    public static BranchResponse fromEntity(Branch entity) {
+        if (entity == null) {
+            return null;
+        }
+
+        return BranchResponse.builder()
+                .id(entity.getId())
+                .organizationId(entity.getOrganization() != null ? entity.getOrganization().getId() : null)
+                .organizationName(entity.getOrganization() != null ? entity.getOrganization().getName() : null)
+                .name(entity.getName())
+                .code(entity.getCode())
+                .address(entity.getAddress())
+                .city(entity.getCity())
+                .region(entity.getRegion())
+                .country(entity.getCountry())
+                .phone(entity.getPhone())
+                .email(entity.getEmail())
+                .isHeadquarters(entity.isHeadquarters())
+                .status(entity.getStatus())
+                .build();
+    }
 }
