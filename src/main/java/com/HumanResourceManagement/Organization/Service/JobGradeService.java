@@ -1,14 +1,13 @@
-package com.hrms.organization.service.impl;
-
-import com.hrms.organization.dto.JobGradeRequestDto;
-import com.hrms.organization.dto.JobGradeResponseDto;
-import com.hrms.organization.entity.JobGrade;
-import com.hrms.organization.repository.JobGradeRepository;
-import com.hrms.organization.service.JobGradeService;
+package com.HumanResourceManagement.Organization.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.HumanResourceManagement.Organization.DTO.JobGradeRequest;
+import com.HumanResourceManagement.Organization.DTO.JobGradeResponse;
+import com.HumanResourceManagement.Organization.Model.JobGrade;
+import com.HumanResourceManagement.Organization.Repository.JobGradeRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,8 +19,7 @@ public class JobGradeService {
 
     private final JobGradeRepository jobGradeRepository;
 
-    @Override
-    public JobGradeResponseDto create(JobGradeRequestDto dto) {
+    public JobGradeResponse create(JobGradeRequest dto) {
         JobGrade entity = JobGrade.builder()
                 .name(dto.getName())
                 .level(dto.getLevel())
@@ -34,24 +32,21 @@ public class JobGradeService {
         return toResponseDto(saved);
     }
 
-    @Override
     @Transactional(readOnly = true)
-    public JobGradeResponseDto getById(Long id) {
+    public JobGradeResponse getById(Long id) {
         JobGrade entity = jobGradeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("JobGrade not found with id: " + id));
         return toResponseDto(entity);
     }
 
-    @Override
     @Transactional(readOnly = true)
-    public List<JobGradeResponseDto> getAll() {
+    public List<JobGradeResponse> getAll() {
         return jobGradeRepository.findAll().stream()
                 .map(this::toResponseDto)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public JobGradeResponseDto update(Long id, JobGradeRequestDto dto) {
+    public JobGradeResponse update(Long id, JobGradeRequest dto) {
         JobGrade entity = jobGradeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("JobGrade not found with id: " + id));
         entity.setName(dto.getName());
@@ -72,8 +67,8 @@ public class JobGradeService {
         jobGradeRepository.deleteById(id);
     }
 
-    private JobGradeResponseDto toResponseDto(JobGrade entity) {
-        return JobGradeResponseDto.builder()
+    private JobGradeResponse toResponseDto(JobGrade entity) {
+        return JobGradeResponse.builder()
                 .id(entity.getId())
                 .name(entity.getName())
                 .level(entity.getLevel())
