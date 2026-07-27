@@ -1,4 +1,4 @@
-package com.hrms.organization.service.impl;
+package com.HumanResourceManagement.Organization.Service;
 
 import com.hrms.organization.dto.PositionRequestDto;
 import com.hrms.organization.dto.PositionResponseDto;
