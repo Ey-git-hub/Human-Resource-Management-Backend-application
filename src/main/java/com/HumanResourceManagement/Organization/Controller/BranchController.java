@@ -1,13 +1,14 @@
-package com.hrms.organization.controller;
+package com.HumanResourceManagement.Organization.Controller;
 
-import com.hrms.organization.dto.BranchRequestDto;
-import com.hrms.organization.dto.BranchResponseDto;
-import com.hrms.organization.service.BranchService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.HumanResourceManagement.Organization.DTO.BranchRequest;
+import com.HumanResourceManagement.Organization.DTO.BranchResponse;
+import com.HumanResourceManagement.Organization.Service.BranchService;
 
 import java.util.List;
 
@@ -19,22 +20,22 @@ public class BranchController {
     private final BranchService branchService;
 
     @PostMapping
-    public ResponseEntity<BranchResponseDto> create(@Valid @RequestBody BranchRequestDto dto) {
+    public ResponseEntity<BranchResponse> create(@Valid @RequestBody BranchRequest dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(branchService.create(dto));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BranchResponseDto> getById(@PathVariable Long id) {
+    public ResponseEntity<BranchResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(branchService.getById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<BranchResponseDto>> getAll() {
+    public ResponseEntity<List<BranchResponse>> getAll() {
         return ResponseEntity.ok(branchService.getAll());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BranchResponseDto> update(@PathVariable Long id, @Valid @RequestBody BranchRequestDto dto) {
+    public ResponseEntity<BranchResponse> update(@PathVariable Long id, @Valid @RequestBody BranchRequest dto) {
         return ResponseEntity.ok(branchService.update(id, dto));
     }
 
