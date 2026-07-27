@@ -1,23 +1,37 @@
 package com.HumanResourceManagement.Organization.DTO;
 
-import lombok.*;
+import com.HumanResourceManagement.Organization.Model.JobGrade;
+import lombok.Builder;
+import lombok.Data;
+
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-
+@Builder
 public class JobGradeResponse {
 
     private Long id;
-
     private String name;
-    private Integer level;
+    private int level;
     private String description;
     private BigDecimal minSalary;
     private BigDecimal maxSalary;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    /**
+     * Converts JobGrade Entity -> Response DTO
+     */
+    public static JobGradeResponse fromEntity(JobGrade entity) {
+        if (entity == null) {
+            return null;
+        }
+
+        return JobGradeResponse.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .level(entity.getLevel())
+                .description(entity.getDescription())
+                .minSalary(entity.getMinSalary())
+                .maxSalary(entity.getMaxSalary())
+                .build();
+    }
 }
