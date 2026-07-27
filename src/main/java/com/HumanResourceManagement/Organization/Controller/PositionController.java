@@ -34,10 +34,12 @@ public class PositionController {
         return ResponseEntity.ok(positionService.getAllPositions());
     }
 
-    @GetMapping("/department/{departmentId}")
-    public ResponseEntity<List<PositionResponse>> getPositionsByDepartment(@PathVariable Long departmentId) {
-        return ResponseEntity.ok(positionService.getPositionsByDepartment(departmentId));
-    }
+    // @GetMapping("/department/{departmentId}")
+    // public ResponseEntity<List<PositionResponse>>
+    // getPositionsByDepartment(@PathVariable Long departmentId) {
+    // return
+    // ResponseEntity.ok(positionService.getPositionsByDepartment(departmentId));
+    // }
 
     @PutMapping("/{id}")
     public ResponseEntity<PositionResponse> updatePosition(

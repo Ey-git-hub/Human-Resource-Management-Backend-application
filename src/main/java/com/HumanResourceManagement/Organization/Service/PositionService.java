@@ -1,4 +1,4 @@
-package com.HumanResourceManagement.Organization.service;
+package com.HumanResourceManagement.Organization.Service;
 
 import com.HumanResourceManagement.Organization.Model.Department;
 import com.HumanResourceManagement.Organization.Model.JobGrade;

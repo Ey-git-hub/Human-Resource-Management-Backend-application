@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.HumanResourceManagement.Organization.Model.Branch;
+// import com.HumanResourceManagement.Organization.Model.Branch;
 import com.HumanResourceManagement.Organization.Model.Position;
 
 public interface PositionRepository extends JpaRepository<Position, Long> {
-    List<Branch> findByDepartmentId(Long departmentId);
+    List<Position> findByDepartmentId(Long departmentId);
 
 }
