@@ -1,12 +1,11 @@
 package com.HumanResourceManagement.Organization.Service;
 
-import com.HumanResourceManagement.Organization.DTO.BranchRequest;
-import com.HumanResourceManagement.Organization.DTO.BranchResponse;
 import com.HumanResourceManagement.Organization.Model.Branch;
 import com.HumanResourceManagement.Organization.Model.Organization;
+import com.HumanResourceManagement.Organization.DTO.BranchRequest;
+import com.HumanResourceManagement.Organization.DTO.BranchResponse;
 import com.HumanResourceManagement.Organization.Repository.BranchRepository;
 import com.HumanResourceManagement.Organization.Repository.OrganizationRepository;
-
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class BranchService {
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Organization not found with ID: " + requestDto.getOrganizationId()));
 
-        Branch branch = BranchResponse.toEntity(requestDto, organization);
+        Branch branch = requestDto.toEntity(organization);
         Branch savedBranch = branchRepository.save(branch);
 
         return BranchResponse.fromEntity(savedBranch);
