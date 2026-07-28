@@ -1,8 +1,8 @@
 package com.HumanResourceManagement.Recruitment.service;
 
 import com.HumanResourceManagement.Recruitment.Model.Candidate;
-import com.HumanResourceManagement.Recruitment.dto.CandidateRequestDto;
-import com.HumanResourceManagement.Recruitment.dto.CandidateResponseDto;
+import com.HumanResourceManagement.Recruitment.dto.CandidateRequest;
+import com.HumanResourceManagement.Recruitment.dto.CandidateResponse;
 import com.HumanResourceManagement.Recruitment.repository.CandidateRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -19,27 +19,27 @@ public class CandidateService {
 
     private final CandidateRepository candidateRepository;
 
-    public CandidateResponseDto createCandidate(CandidateRequestDto requestDto) {
+    public CandidateResponse createCandidate(CandidateRequest requestDto) {
         Candidate candidate = requestDto.toEntity();
         Candidate savedCandidate = candidateRepository.save(candidate);
-        return CandidateResponseDto.fromEntity(savedCandidate);
+        return CandidateResponse.fromEntity(savedCandidate);
     }
 
     @Transactional(readOnly = true)
-    public CandidateResponseDto getCandidateById(Long id) {
+    public CandidateResponse getCandidateById(Long id) {
         Candidate candidate = candidateRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Candidate not found with ID: " + id));
-        return CandidateResponseDto.fromEntity(candidate);
+        return CandidateResponse.fromEntity(candidate);
     }
 
     @Transactional(readOnly = true)
-    public List<CandidateResponseDto> getAllCandidates() {
+    public List<CandidateResponse> getAllCandidates() {
         return candidateRepository.findAll().stream()
-                .map(CandidateResponseDto::fromEntity)
+                .map(CandidateResponse::fromEntity)
                 .collect(Collectors.toList());
     }
 
-    public CandidateResponseDto updateCandidate(Long id, CandidateRequestDto requestDto) {
+    public CandidateResponse updateCandidate(Long id, CandidateRequest requestDto) {
         Candidate existingCandidate = candidateRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Candidate not found with ID: " + id));
 
@@ -54,7 +54,7 @@ public class CandidateService {
         existingCandidate.setStatus(requestDto.getStatus());
 
         Candidate updatedCandidate = candidateRepository.save(existingCandidate);
-        return CandidateResponseDto.fromEntity(updatedCandidate);
+        return CandidateResponse.fromEntity(updatedCandidate);
     }
 
     public void deleteCandidate(Long id) {
