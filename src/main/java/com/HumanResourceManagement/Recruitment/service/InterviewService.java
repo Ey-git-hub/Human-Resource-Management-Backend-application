@@ -8,6 +8,8 @@ import com.HumanResourceManagement.Recruitment.Model.JobApplication;
 import com.HumanResourceManagement.Recruitment.dto.InterviewRequest;
 import com.HumanResourceManagement.Recruitment.dto.InterviewResponse;
 import com.HumanResourceManagement.Recruitment.repository.InterviewRepository;
+import com.HumanResourceManagement.Recruitment.repository.JobApplicationRepository;
+
 // import com.HumanResourceManagement.Recruitment.repository.JobApplicationRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
