@@ -1,17 +1,22 @@
 package com.HumanResourceManagement.Payroll.Model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 // import java.time.LocalTime;
 
 import com.HumanResourceManagement.Employee.Model.Employee;
 
-@Data
+@Getter
+@Setter
 @Entity
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class Payroll {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
