@@ -4,14 +4,19 @@ package com.HumanResourceManagement.Recruitment.Model;
 
 // import com.HumanResourceManagement.shared.audit.Auditable;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "job_applications")
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class JobApplication {
 
     @Id
