@@ -2,14 +2,17 @@ package com.HumanResourceManagement.Organization.Model;
 
 // import com.HumanResourceManagement.shared.audit.Auditable;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Data
 @Entity
 @Table(name = "job_grades")
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class JobGrade {
 
     @Id
