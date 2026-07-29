@@ -2,12 +2,17 @@ package com.HumanResourceManagement.Recruitment.Model;
 
 // import com.HumanResourceManagement.shared.audit.Auditable;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "candidates")
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class Candidate {
 
     @Id
