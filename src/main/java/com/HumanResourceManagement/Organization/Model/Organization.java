@@ -2,8 +2,10 @@ package com.HumanResourceManagement.Organization.Model;
 
 // import com.HumanResourceManagement.shared.audit.Auditable;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,6 +18,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @Table(name = "organizations")
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Organization {
 
     @Id
