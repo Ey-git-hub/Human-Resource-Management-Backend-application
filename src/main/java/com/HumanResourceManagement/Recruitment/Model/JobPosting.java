@@ -1,7 +1,10 @@
 package com.HumanResourceManagement.Recruitment.Model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
@@ -9,10 +12,12 @@ import com.HumanResourceManagement.Employee.Model.Employee;
 import com.HumanResourceManagement.Organization.Model.Department;
 import com.HumanResourceManagement.Organization.Model.Position;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "job_postings")
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class JobPosting {
 
     @Id
