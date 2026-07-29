@@ -1,5 +1,19 @@
 package com.HumanResourceManagement.Payroll.Repository;
 
-public class PayrollRepository {
+import com.HumanResourceManagement.Payroll.Model.Payroll;
+import com.HumanResourceManagement.Payroll.Model.PayrollStatus;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.util.List;
+
+@Repository
+public interface PayrollRepository extends JpaRepository<Payroll, Long> {
+
+    List<Payroll> findByEmployeeId(Long employeeId);
+
+    List<Payroll> findByStatus(PayrollStatus status);
+
+    List<Payroll> findByPayPeriodStartBetween(LocalDate startDate, LocalDate endDate);
 }
