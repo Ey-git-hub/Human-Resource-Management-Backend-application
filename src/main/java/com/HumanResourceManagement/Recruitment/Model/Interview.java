@@ -7,10 +7,13 @@ import java.time.LocalDateTime;
 
 import com.HumanResourceManagement.Employee.Model.Employee;
 
-@Data
+@Getter
+@Setter
+
 @Entity
 @Table(name = "interviews")
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class Interview {
 
     @Id
