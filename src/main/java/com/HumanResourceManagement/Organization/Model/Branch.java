@@ -4,12 +4,15 @@ package com.HumanResourceManagement.Organization.Model;
 
 // import com.HumanResourceManagement.shared.audit.Auditable;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "branches")
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class Branch {
 
     @Id
