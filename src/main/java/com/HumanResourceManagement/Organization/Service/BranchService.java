@@ -71,8 +71,13 @@ public class BranchService {
         existingBranch.setCountry(requestDto.getCountry());
         existingBranch.setPhone(requestDto.getPhone());
         existingBranch.setEmail(requestDto.getEmail());
-        // existingBranch.setHeadquarters(requestDto.isHeadquarters());
-        // existingBranch.setStatus(requestDto.getStatus());
+        // FIX 1: Set headquarters using getter from DTO
+        existingBranch.setHeadquarters(Boolean.TRUE.equals(requestDto.getHeadquarters()));
+
+        // FIX 2: Convert String status to Branch.Status Enum
+        if (requestDto.getStatus() != null) {
+            existingBranch.setStatus(Branch.Status.valueOf(requestDto.getStatus().toUpperCase()));
+        }
 
         Branch updatedBranch = branchRepository.save(existingBranch);
         return BranchResponse.fromEntity(updatedBranch);
