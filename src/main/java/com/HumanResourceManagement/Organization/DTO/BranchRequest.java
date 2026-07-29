@@ -41,8 +41,14 @@ public class BranchRequest {
         branch.setCountry(this.country);
         branch.setPhone(this.phone);
         branch.setEmail(this.email);
-        // branch.setHeadquarters(this.isHeadquarters);
-        // branch.setStatus(this.status);
+        branch.setHeadquarters(Boolean.TRUE.equals(this.headquarters));
+
+        // status Enum mapping (null-safe)
+        if (this.status != null) {
+            branch.setStatus(Branch.Status.valueOf(this.status.toUpperCase()));
+        } else {
+            branch.setStatus(Branch.Status.ACTIVE);
+        }
         return branch;
     }
 }
