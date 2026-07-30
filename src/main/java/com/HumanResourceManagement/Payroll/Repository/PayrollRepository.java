@@ -3,12 +3,10 @@ package com.HumanResourceManagement.Payroll.Repository;
 import com.HumanResourceManagement.Payroll.Model.Payroll;
 import com.HumanResourceManagement.Payroll.Model.PayrollStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Repository
 public interface PayrollRepository extends JpaRepository<Payroll, Long> {
 
     List<Payroll> findByEmployeeId(Long employeeId);
