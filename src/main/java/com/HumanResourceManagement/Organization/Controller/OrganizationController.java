@@ -3,13 +3,13 @@ package com.HumanResourceManagement.Organization.Controller;
 import com.HumanResourceManagement.Organization.DTO.OrganizationRequest;
 import com.HumanResourceManagement.Organization.DTO.OrganizationResponse;
 import com.HumanResourceManagement.Organization.Service.OrganizationService;
+import com.HumanResourceManagement.shared.util.PageableUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/organizations")
@@ -26,12 +26,18 @@ public class OrganizationController {
 
     @GetMapping("/{id}")
     public ResponseEntity<OrganizationResponse> getOrganizationById(@PathVariable Long id) {
-        return ResponseEntity.ok(organizationService.getOrganizationById(id));
+        return organizationService.getOrganizationById(id).map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<OrganizationResponse>> getAllOrganizations() {
-        return ResponseEntity.ok(organizationService.getAllOrganizations());
+    public ResponseEntity<Page<OrganizationResponse>> getAllOrganizations(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction) {
+        return ResponseEntity.ok(
+                organizationService.getAllOrganizations(PageableUtils.build(page, size, sortBy, direction)));
     }
 
     @PutMapping("/{id}")
