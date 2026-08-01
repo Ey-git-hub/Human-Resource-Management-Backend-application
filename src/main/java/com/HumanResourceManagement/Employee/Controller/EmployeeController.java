@@ -1,6 +1,8 @@
 package com.HumanResourceManagement.Employee.Controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import com.HumanResourceManagement.Employee.DTO.EmployeeRequest;
 import com.HumanResourceManagement.Employee.DTO.EmployeeResponse;
 import com.HumanResourceManagement.Employee.Service.EmployeeService;
+import com.HumanResourceManagement.shared.util.PageableUtils;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,10 +20,14 @@ import java.util.Optional;
 public class EmployeeController {
     private final EmployeeService employeeService;
 
-    // to get all the employees
+    // to get all the employees (paginated)
     @GetMapping
-    public ResponseEntity<List<EmployeeResponse>> getAllEmployees() {
-        return ResponseEntity.ok(employeeService.fetchAllEmployees());
+    public ResponseEntity<Page<EmployeeResponse>> getAllEmployees(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction) {
+        return ResponseEntity.ok(employeeService.fetchAllEmployees(PageableUtils.build(page, size, sortBy, direction)));
     }
 
     // to get a single employee using id
@@ -38,7 +44,7 @@ public class EmployeeController {
 
     // to create new employee
     @PostMapping
-    public ResponseEntity<EmployeeResponse> addEmployee(@RequestBody EmployeeRequest request) {
+    public ResponseEntity<EmployeeResponse> addEmployee(@Valid @RequestBody EmployeeRequest request) {
         EmployeeResponse created = employeeService.createEmployee(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
 
@@ -46,7 +52,7 @@ public class EmployeeController {
 
     @PutMapping("/{id}")
     public ResponseEntity<EmployeeResponse> updateEmployee(@PathVariable Long id,
-            @RequestBody EmployeeRequest request) {
+            @Valid @RequestBody EmployeeRequest request) {
         return ResponseEntity.ok(employeeService.UpdateEmployee(id, request));
     }
 
