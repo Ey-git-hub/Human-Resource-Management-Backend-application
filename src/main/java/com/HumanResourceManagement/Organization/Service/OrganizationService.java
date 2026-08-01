@@ -3,14 +3,16 @@ package com.HumanResourceManagement.Organization.Service;
 import com.HumanResourceManagement.Organization.Model.Organization;
 import com.HumanResourceManagement.Organization.DTO.OrganizationRequest;
 import com.HumanResourceManagement.Organization.DTO.OrganizationResponse;
+import com.HumanResourceManagement.Organization.Mapper.OrganizationMapper;
 import com.HumanResourceManagement.Organization.Repository.OrganizationRepository;
-import jakarta.persistence.EntityNotFoundException;
+import com.HumanResourceManagement.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,50 +20,37 @@ import java.util.stream.Collectors;
 public class OrganizationService {
 
     private final OrganizationRepository organizationRepository;
+    private final OrganizationMapper organizationMapper;
 
     public OrganizationResponse createOrganization(OrganizationRequest requestDto) {
-        Organization organization = requestDto.toEntity();
+        Organization organization = organizationMapper.toEntity(requestDto);
         Organization savedOrganization = organizationRepository.save(organization);
-        return OrganizationResponse.fromEntity(savedOrganization);
+        return organizationMapper.toResponse(savedOrganization);
     }
 
     @Transactional(readOnly = true)
-    public OrganizationResponse getOrganizationById(Long id) {
-        Organization organization = organizationRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Organization not found with ID: " + id));
-        return OrganizationResponse.fromEntity(organization);
+    public Optional<OrganizationResponse> getOrganizationById(Long id) {
+        return organizationRepository.findById(id).map(organizationMapper::toResponse);
     }
 
     @Transactional(readOnly = true)
-    public List<OrganizationResponse> getAllOrganizations() {
-        return organizationRepository.findAll().stream()
-                .map(OrganizationResponse::fromEntity)
-                .collect(Collectors.toList());
+    public Page<OrganizationResponse> getAllOrganizations(Pageable pageable) {
+        return organizationRepository.findAll(pageable).map(organizationMapper::toResponse);
     }
 
     public OrganizationResponse updateOrganization(Long id, OrganizationRequest requestDto) {
         Organization existingOrganization = organizationRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Organization not found with ID: " + id));
+                .orElseThrow(() -> ResourceNotFoundException.of("Organization", id));
 
-        existingOrganization.setName(requestDto.getName());
-        existingOrganization.setLegalName(requestDto.getLegalName());
-        existingOrganization.setRegistrationNumber(requestDto.getRegistrationNumber());
-        existingOrganization.setTaxId(requestDto.getTaxId());
-        existingOrganization.setIndustry(requestDto.getIndustry());
-        existingOrganization.setAddress(requestDto.getAddress());
-        existingOrganization.setPhone(requestDto.getPhone());
-        existingOrganization.setEmail(requestDto.getEmail());
-        existingOrganization.setWebsite(requestDto.getWebsite());
-        existingOrganization.setLogoUrl(requestDto.getLogoUrl());
-        existingOrganization.setFoundedDate(requestDto.getFoundedDate());
+        organizationMapper.updateEntity(existingOrganization, requestDto);
 
         Organization updatedOrganization = organizationRepository.save(existingOrganization);
-        return OrganizationResponse.fromEntity(updatedOrganization);
+        return organizationMapper.toResponse(updatedOrganization);
     }
 
     public void deleteOrganization(Long id) {
         if (!organizationRepository.existsById(id)) {
-            throw new EntityNotFoundException("Organization not found with ID: " + id);
+            throw ResourceNotFoundException.of("Organization", id);
         }
         organizationRepository.deleteById(id);
     }
