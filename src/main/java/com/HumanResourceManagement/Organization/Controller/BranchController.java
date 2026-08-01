@@ -2,6 +2,7 @@ package com.HumanResourceManagement.Organization.Controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.HumanResourceManagement.Organization.DTO.BranchRequest;
 import com.HumanResourceManagement.Organization.DTO.BranchResponse;
 import com.HumanResourceManagement.Organization.Service.BranchService;
-
-import java.util.List;
+import com.HumanResourceManagement.shared.util.PageableUtils;
 
 @RestController
 @RequestMapping("/api/v1/branches")
@@ -26,12 +26,27 @@ public class BranchController {
 
     @GetMapping("/{id}")
     public ResponseEntity<BranchResponse> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(branchService.getBranchById(id));
+        return branchService.getBranchById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<BranchResponse>> getAll() {
-        return ResponseEntity.ok(branchService.getAllBranches());
+    public ResponseEntity<Page<BranchResponse>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction) {
+        return ResponseEntity.ok(branchService.getAllBranches(PageableUtils.build(page, size, sortBy, direction)));
+    }
+
+    @GetMapping("/organization/{organizationId}")
+    public ResponseEntity<Page<BranchResponse>> getByOrganization(
+            @PathVariable Long organizationId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction) {
+        return ResponseEntity.ok(branchService.getBranchesByOrganization(organizationId,
+                PageableUtils.build(page, size, sortBy, direction)));
     }
 
     @PutMapping("/{id}")
