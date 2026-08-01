@@ -4,15 +4,16 @@ import com.HumanResourceManagement.Payroll.DTO.PayrollRequest;
 import com.HumanResourceManagement.Payroll.DTO.PayrollResponse;
 import com.HumanResourceManagement.Payroll.Model.PayrollStatus;
 import com.HumanResourceManagement.Payroll.Service.PayrollService;
+import com.HumanResourceManagement.shared.util.PageableUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/payrolls")
@@ -29,17 +30,30 @@ public class PayrollController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PayrollResponse> getPayrollById(@PathVariable Long id) {
-        return ResponseEntity.ok(payrollService.getPayrollById(id));
+        return payrollService.getPayrollById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<PayrollResponse>> getAllPayrolls() {
-        return ResponseEntity.ok(payrollService.getAllPayrolls());
+    public ResponseEntity<Page<PayrollResponse>> getAllPayrolls(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction) {
+        return ResponseEntity.ok(
+                payrollService.getAllPayrolls(PageableUtils.build(page, size, sortBy, direction)));
     }
 
     @GetMapping("/employee/{employeeId}")
-    public ResponseEntity<List<PayrollResponse>> getPayrollsByEmployee(@PathVariable Long employeeId) {
-        return ResponseEntity.ok(payrollService.getPayrollsByEmployee(employeeId));
+    public ResponseEntity<Page<PayrollResponse>> getPayrollsByEmployee(
+            @PathVariable Long employeeId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction) {
+        return ResponseEntity.ok(
+                payrollService.getPayrollsByEmployee(employeeId, PageableUtils.build(page, size, sortBy, direction)));
     }
 
     @PutMapping("/{id}")
