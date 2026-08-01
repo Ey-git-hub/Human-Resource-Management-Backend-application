@@ -3,6 +3,8 @@ package com.HumanResourceManagement.Recruitment.repository;
 import com.HumanResourceManagement.Recruitment.Model.Candidate;
 import com.HumanResourceManagement.Recruitment.Model.Candidate.Source;
 import com.HumanResourceManagement.Recruitment.Model.Candidate.Status;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -19,7 +21,9 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 
     // Find candidates by Recruitment Status (NEW, IN_PROCESS, HIRED, REJECTED)
     List<Candidate> findByStatus(Status status);
+    Page<Candidate> findByStatus(Status status, Pageable pageable);
 
     // Find candidates by Source (REFERRAL, JOB_BOARD, WEBSITE, AGENCY)
     List<Candidate> findBySource(Source source);
+    Page<Candidate> findBySource(Source source, Pageable pageable);
 }
