@@ -2,57 +2,55 @@ package com.HumanResourceManagement.Organization.Service;
 
 import com.HumanResourceManagement.Organization.DTO.DepartmentRequest;
 import com.HumanResourceManagement.Organization.DTO.DepartmentResponse;
+import com.HumanResourceManagement.Organization.Mapper.DepartmentMapper;
 import com.HumanResourceManagement.Organization.Model.Department;
 import com.HumanResourceManagement.Organization.Repository.DepartmentRepository;
-// import com.HumanResourceManagement.application.model.Organization.Department;
+import com.HumanResourceManagement.shared.exception.DuplicateResourceException;
+import com.HumanResourceManagement.shared.exception.ResourceNotFoundException;
 
 import lombok.RequiredArgsConstructor;
-// import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class DepartmentService {
     private final DepartmentRepository departmentRepository;
+    private final DepartmentMapper departmentMapper;
 
-    public List<DepartmentResponse> fetchAllDepartments() {
-        return departmentRepository.findAll().stream()
-                .map(DepartmentResponse::fromEntity)
-                .collect(Collectors.toList());
+    public Page<DepartmentResponse> fetchAllDepartments(Pageable pageable) {
+        return departmentRepository.findAll(pageable)
+                .map(departmentMapper::toResponse);
     }
 
     public Optional<DepartmentResponse> getDepartment(Long id) {
         return departmentRepository.findById(id)
-                .map(DepartmentResponse::fromEntity);
-
+                .map(departmentMapper::toResponse);
     }
 
     public DepartmentResponse createDepartment(DepartmentRequest request) {
         if (departmentRepository.existsByName(request.getName())) {
-            throw new IllegalArgumentException("department already exists with name : " + request.getName());
+            throw new DuplicateResourceException("Department already exists with name: " + request.getName());
         }
-        Department department = new Department();
-        department.setName(request.getName());
-        department.setDescription(request.getDescription());
-        // i will continue this
-        // if(request.getManagerName()!=null){
-        // Employee manager=
-        // }
-        return DepartmentResponse.fromEntity(departmentRepository.save(department));
-
+        Department department = departmentMapper.toEntity(request);
+        // TODO: resolve ManagerName -> Employee manager lookup once that association is wired up
+        return departmentMapper.toResponse(departmentRepository.save(department));
     }
 
     public DepartmentResponse updateDepartment(Long id, DepartmentRequest request) {
         Department existing = departmentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("department does not exist with id: " + id));
-        existing.setName(request.getName());
-        existing.setDescription(request.getDescription());
+                .orElseThrow(() -> ResourceNotFoundException.of("Department", id));
+        departmentMapper.updateEntity(existing, request);
+        return departmentMapper.toResponse(departmentRepository.save(existing));
+    }
 
-        return DepartmentResponse.fromEntity(departmentRepository.save(existing));
-
+    public void deleteDepartment(Long id) {
+        if (!departmentRepository.existsById(id)) {
+            throw ResourceNotFoundException.of("Department", id);
+        }
+        departmentRepository.deleteById(id);
     }
 }
