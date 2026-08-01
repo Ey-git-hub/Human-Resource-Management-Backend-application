@@ -1,16 +1,17 @@
 package com.HumanResourceManagement.Recruitment.service;
 
+import com.HumanResourceManagement.Recruitment.Mapper.CandidateMapper;
 import com.HumanResourceManagement.Recruitment.Model.Candidate;
 import com.HumanResourceManagement.Recruitment.dto.CandidateRequest;
 import com.HumanResourceManagement.Recruitment.dto.CandidateResponse;
 import com.HumanResourceManagement.Recruitment.repository.CandidateRepository;
-import jakarta.persistence.EntityNotFoundException;
+import com.HumanResourceManagement.shared.exception.DuplicateResourceException;
+import com.HumanResourceManagement.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,48 +19,42 @@ import java.util.stream.Collectors;
 public class CandidateService {
 
     private final CandidateRepository candidateRepository;
+    private final CandidateMapper candidateMapper;
 
     public CandidateResponse createCandidate(CandidateRequest requestDto) {
-        Candidate candidate = requestDto.toEntity();
+        if (candidateRepository.existsByEmail(requestDto.getEmail())) {
+            throw new DuplicateResourceException("Candidate already exists with email: " + requestDto.getEmail());
+        }
+
+        Candidate candidate = candidateMapper.toEntity(requestDto);
         Candidate savedCandidate = candidateRepository.save(candidate);
-        return CandidateResponse.fromEntity(savedCandidate);
+        return candidateMapper.toResponse(savedCandidate);
     }
 
     @Transactional(readOnly = true)
     public CandidateResponse getCandidateById(Long id) {
         Candidate candidate = candidateRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Candidate not found with ID: " + id));
-        return CandidateResponse.fromEntity(candidate);
+                .orElseThrow(() -> ResourceNotFoundException.of("Candidate", id));
+        return candidateMapper.toResponse(candidate);
     }
 
     @Transactional(readOnly = true)
-    public List<CandidateResponse> getAllCandidates() {
-        return candidateRepository.findAll().stream()
-                .map(CandidateResponse::fromEntity)
-                .collect(Collectors.toList());
+    public Page<CandidateResponse> getAllCandidates(Pageable pageable) {
+        return candidateRepository.findAll(pageable).map(candidateMapper::toResponse);
     }
 
     public CandidateResponse updateCandidate(Long id, CandidateRequest requestDto) {
         Candidate existingCandidate = candidateRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Candidate not found with ID: " + id));
+                .orElseThrow(() -> ResourceNotFoundException.of("Candidate", id));
 
-        existingCandidate.setFirstName(requestDto.getFirstName());
-        existingCandidate.setLastName(requestDto.getLastName());
-        existingCandidate.setEmail(requestDto.getEmail());
-        existingCandidate.setPhone(requestDto.getPhone());
-        existingCandidate.setResumeUrl(requestDto.getResumeUrl());
-        existingCandidate.setCoverLetterUrl(requestDto.getCoverLetterUrl());
-        existingCandidate.setLinkedInUrl(requestDto.getLinkedInUrl());
-        existingCandidate.setSource(requestDto.getSource());
-        existingCandidate.setStatus(requestDto.getStatus());
-
+        candidateMapper.updateEntity(existingCandidate, requestDto);
         Candidate updatedCandidate = candidateRepository.save(existingCandidate);
-        return CandidateResponse.fromEntity(updatedCandidate);
+        return candidateMapper.toResponse(updatedCandidate);
     }
 
     public void deleteCandidate(Long id) {
         if (!candidateRepository.existsById(id)) {
-            throw new EntityNotFoundException("Candidate not found with ID: " + id);
+            throw ResourceNotFoundException.of("Candidate", id);
         }
         candidateRepository.deleteById(id);
     }
