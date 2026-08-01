@@ -3,13 +3,13 @@ package com.HumanResourceManagement.Organization.Controller;
 import com.HumanResourceManagement.Organization.DTO.JobGradeRequest;
 import com.HumanResourceManagement.Organization.DTO.JobGradeResponse;
 import com.HumanResourceManagement.Organization.Service.JobGradeService;
+import com.HumanResourceManagement.shared.util.PageableUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/job-grades")
@@ -26,12 +26,16 @@ public class JobGradeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<JobGradeResponse> getJobGradeById(@PathVariable Long id) {
-        return ResponseEntity.ok(jobGradeService.getJobGradeById(id));
+        return jobGradeService.getJobGradeById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<JobGradeResponse>> getAllJobGrades() {
-        return ResponseEntity.ok(jobGradeService.getAllJobGrades());
+    public ResponseEntity<Page<JobGradeResponse>> getAllJobGrades(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction) {
+        return ResponseEntity.ok(jobGradeService.getAllJobGrades(PageableUtils.build(page, size, sortBy, direction)));
     }
 
     @PutMapping("/{id}")
