@@ -3,13 +3,13 @@ package com.HumanResourceManagement.Organization.Controller;
 import com.HumanResourceManagement.Organization.DTO.PositionRequest;
 import com.HumanResourceManagement.Organization.DTO.PositionResponse;
 import com.HumanResourceManagement.Organization.Service.PositionService;
+import com.HumanResourceManagement.shared.util.PageableUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/positions")
@@ -26,20 +26,28 @@ public class PositionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PositionResponse> getPositionById(@PathVariable Long id) {
-        return ResponseEntity.ok(positionService.getPositionById(id));
+        return positionService.getPositionById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<PositionResponse>> getAllPositions() {
-        return ResponseEntity.ok(positionService.getAllPositions());
+    public ResponseEntity<Page<PositionResponse>> getAllPositions(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction) {
+        return ResponseEntity.ok(positionService.getAllPositions(PageableUtils.build(page, size, sortBy, direction)));
     }
 
-    // @GetMapping("/department/{departmentId}")
-    // public ResponseEntity<List<PositionResponse>>
-    // getPositionsByDepartment(@PathVariable Long departmentId) {
-    // return
-    // ResponseEntity.ok(positionService.getPositionsByDepartment(departmentId));
-    // }
+    @GetMapping("/department/{departmentId}")
+    public ResponseEntity<Page<PositionResponse>> getPositionsByDepartment(
+            @PathVariable Long departmentId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction) {
+        return ResponseEntity.ok(positionService.getPositionsByDepartment(departmentId,
+                PageableUtils.build(page, size, sortBy, direction)));
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<PositionResponse> updatePosition(
