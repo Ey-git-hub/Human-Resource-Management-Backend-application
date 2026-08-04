@@ -1,6 +1,5 @@
 package com.HumanResourceManagement.Recruitment.dto;
 
-import com.HumanResourceManagement.Recruitment.Model.Candidate;
 import com.HumanResourceManagement.Recruitment.Model.Candidate.Source;
 import com.HumanResourceManagement.Recruitment.Model.Candidate.Status;
 import jakarta.validation.constraints.Email;
@@ -30,18 +29,4 @@ public class CandidateRequest {
 
     @NotNull(message = "Status is required")
     private Status status = Status.NEW;
-
-    public Candidate toEntity() {
-        Candidate candidate = new Candidate();
-        candidate.setFirstName(this.firstName);
-        candidate.setLastName(this.lastName);
-        candidate.setEmail(this.email);
-        candidate.setPhone(this.phone);
-        candidate.setResumeUrl(this.resumeUrl);
-        candidate.setCoverLetterUrl(this.coverLetterUrl);
-        candidate.setLinkedInUrl(this.linkedInUrl);
-        candidate.setSource(this.source);
-        candidate.setStatus(this.status);
-        return candidate;
-    }
 }
