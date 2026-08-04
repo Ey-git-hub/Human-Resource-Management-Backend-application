@@ -7,26 +7,33 @@ import com.HumanResourceManagement.Recruitment.Model.Interview;
 import com.HumanResourceManagement.Recruitment.Model.JobApplication;
 import com.HumanResourceManagement.Recruitment.dto.InterviewRequest;
 import com.HumanResourceManagement.Recruitment.dto.InterviewResponse;
+import com.HumanResourceManagement.shared.util.MapperUtils;
 
 @Component
 public class InterviewMapper {
 
     public InterviewResponse toResponse(Interview interview) {
-        return InterviewResponse.fromEntity(interview);
+        InterviewResponse response = MapperUtils.map(interview, InterviewResponse.class);
+        if (interview.getJobApplication() != null) {
+            response.setJobApplicationId(interview.getJobApplication().getId());
+        }
+        if (interview.getInterviewer() != null) {
+            response.setInterviewerId(interview.getInterviewer().getId());
+            response.setInterviewerName(interview.getInterviewer().getFirstName() + " " + interview.getInterviewer().getLastName());
+        }
+        return response;
     }
 
     public Interview toEntity(InterviewRequest request, JobApplication jobApplication, Employee interviewer) {
-        return request.toEntity(jobApplication, interviewer);
+        Interview interview = MapperUtils.map(request, Interview.class);
+        interview.setJobApplication(jobApplication);
+        interview.setInterviewer(interviewer);
+        return interview;
     }
 
     public void updateEntity(Interview existing, InterviewRequest request, JobApplication jobApplication, Employee interviewer) {
+        MapperUtils.copy(request, existing);
         existing.setJobApplication(jobApplication);
         existing.setInterviewer(interviewer);
-        existing.setScheduledDate(request.getScheduledDate());
-        existing.setMode(request.getMode());
-        existing.setLocation(request.getLocation());
-        existing.setStatus(request.getStatus());
-        existing.setFeedback(request.getFeedback());
-        existing.setRating(request.getRating());
     }
 }
