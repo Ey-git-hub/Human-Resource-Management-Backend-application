@@ -1,6 +1,5 @@
 package com.HumanResourceManagement.Recruitment.dto;
 
-import com.HumanResourceManagement.Recruitment.Model.JobPosting;
 import com.HumanResourceManagement.Recruitment.Model.JobPosting.EmploymentType;
 import com.HumanResourceManagement.Recruitment.Model.JobPosting.Status;
 import lombok.Builder;
@@ -27,39 +26,4 @@ public class JobPostingResponse {
     private Status status;
     private Long createdById;
     private String createdByName;
-
-    /**
-     * Converts JobPosting Entity -> Response DTO
-     */
-    public static JobPostingResponse fromEntity(JobPosting entity) {
-        if (entity == null) {
-            return null;
-        }
-
-        String positionTitle = entity.getPosition() != null ? entity.getPosition().getTitle() : null;
-        String departmentName = entity.getDepartment() != null ? entity.getDepartment().getName() : null;
-
-        String createdByName = null;
-        if (entity.getCreatedBy() != null) {
-            createdByName = entity.getCreatedBy().getFirstName() + " " + entity.getCreatedBy().getLastName();
-        }
-
-        return JobPostingResponse.builder()
-                .id(entity.getId())
-                .positionId(entity.getPosition() != null ? entity.getPosition().getId() : null)
-                .positionTitle(positionTitle)
-                .departmentId(entity.getDepartment() != null ? entity.getDepartment().getId() : null)
-                .departmentName(departmentName)
-                .title(entity.getTitle())
-                .description(entity.getDescription())
-                .requirements(entity.getRequirements())
-                .employmentType(entity.getEmploymentType())
-                .numberOfOpenings(entity.getNumberOfOpenings())
-                .postedDate(entity.getPostedDate())
-                .closingDate(entity.getClosingDate())
-                .status(entity.getStatus())
-                .createdById(entity.getCreatedBy() != null ? entity.getCreatedBy().getId() : null)
-                .createdByName(createdByName)
-                .build();
-    }
 }
