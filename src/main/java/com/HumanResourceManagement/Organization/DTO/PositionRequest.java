@@ -1,8 +1,5 @@
 package com.HumanResourceManagement.Organization.DTO;
 
-import com.HumanResourceManagement.Organization.Model.Department;
-import com.HumanResourceManagement.Organization.Model.JobGrade;
-import com.HumanResourceManagement.Organization.Model.Position;
 import com.HumanResourceManagement.Organization.Model.Position.Status;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -30,20 +27,4 @@ public class PositionRequest {
 
     @NotNull(message = "Status is required")
     private Status status = Status.ACTIVE;
-
-    /**
-     * Converts incoming request DTO + Relationships -> Position Entity
-     */
-    public Position toEntity(Department department, JobGrade jobGrade) {
-        Position position = new Position();
-        position.setDepartment(department);
-        position.setJobGrade(jobGrade);
-        position.setTitle(this.title);
-        position.setCode(this.code);
-        position.setDescription(this.description);
-        position.setMinSalary(this.minSalary);
-        position.setMaxSalary(this.maxSalary);
-        position.setStatus(this.status);
-        return position;
-    }
 }
