@@ -1,9 +1,5 @@
 package com.HumanResourceManagement.Recruitment.dto;
 
-import com.HumanResourceManagement.Employee.Model.Employee;
-import com.HumanResourceManagement.Organization.Model.Department;
-import com.HumanResourceManagement.Organization.Model.Position;
-import com.HumanResourceManagement.Recruitment.Model.JobPosting;
 import com.HumanResourceManagement.Recruitment.Model.JobPosting.EmploymentType;
 import com.HumanResourceManagement.Recruitment.Model.JobPosting.Status;
 import jakarta.validation.constraints.Min;
@@ -49,23 +45,4 @@ public class JobPostingRequest {
 
     @NotNull(message = "Created by (Employee ID) is required")
     private Long createdById;
-
-    /**
-     * Converts incoming request DTO + Relationships -> JobPosting Entity
-     */
-    public JobPosting toEntity(Position position, Department department, Employee createdBy) {
-        JobPosting jobPosting = new JobPosting();
-        jobPosting.setPosition(position);
-        jobPosting.setDepartment(department);
-        jobPosting.setTitle(this.title);
-        jobPosting.setDescription(this.description);
-        jobPosting.setRequirements(this.requirements);
-        jobPosting.setEmploymentType(this.employmentType);
-        jobPosting.setNumberOfOpenings(this.numberOfOpenings);
-        jobPosting.setPostedDate(this.postedDate != null ? this.postedDate : LocalDate.now());
-        jobPosting.setClosingDate(this.closingDate);
-        jobPosting.setStatus(this.status);
-        jobPosting.setCreatedBy(createdBy);
-        return jobPosting;
-    }
 }
