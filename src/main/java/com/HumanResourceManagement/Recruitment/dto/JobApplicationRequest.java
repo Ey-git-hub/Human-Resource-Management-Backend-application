@@ -1,7 +1,5 @@
 package com.HumanResourceManagement.Recruitment.dto;
 
-import com.HumanResourceManagement.Recruitment.Model.Candidate;
-import com.HumanResourceManagement.Recruitment.Model.JobApplication;
 import com.HumanResourceManagement.Recruitment.Model.JobApplication.Status;
 import com.HumanResourceManagement.Recruitment.Model.JobPosting;
 import jakarta.validation.constraints.NotNull;
@@ -29,19 +27,4 @@ public class JobApplicationRequest {
 
     private String resumeUrl;
     private String notes;
-
-    /**
-     * Converts incoming request DTO + Relationships -> JobApplication Entity
-     */
-    public JobApplication toEntity(Candidate candidate, JobPosting jobPosting) {
-        JobApplication jobApplication = new JobApplication();
-        jobApplication.setCandidate(candidate);
-        jobApplication.setJobPosting(jobPosting);
-        jobApplication.setAppliedDate(this.appliedDate != null ? this.appliedDate : LocalDate.now());
-        jobApplication.setStatus(this.status);
-        jobApplication.setCoverLetter(this.coverLetter);
-        jobApplication.setResumeUrl(this.resumeUrl);
-        jobApplication.setNotes(this.notes);
-        return jobApplication;
-    }
 }
