@@ -2,7 +2,7 @@ package com.HumanResourceManagement.Organization.Controller;
 
 import com.HumanResourceManagement.Organization.DTO.OrganizationRequest;
 import com.HumanResourceManagement.Organization.DTO.OrganizationResponse;
-import com.HumanResourceManagement.Organization.Service.OrganizationService;
+import com.HumanResourceManagement.Organization.Service.Impl.OrganizationService;
 import com.HumanResourceManagement.shared.util.PageableUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,10 +1,11 @@
-package com.HumanResourceManagement.Recruitment.service;
+package com.HumanResourceManagement.Recruitment.service.Impl;
 
 import com.HumanResourceManagement.Recruitment.Mapper.CandidateMapper;
 import com.HumanResourceManagement.Recruitment.Model.Candidate;
 import com.HumanResourceManagement.Recruitment.dto.CandidateRequest;
 import com.HumanResourceManagement.Recruitment.dto.CandidateResponse;
 import com.HumanResourceManagement.Recruitment.repository.CandidateRepository;
+import com.HumanResourceManagement.Recruitment.service.CandidateServiceInterface;
 import com.HumanResourceManagement.shared.exception.DuplicateResourceException;
 import com.HumanResourceManagement.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class CandidateService {
+public class CandidateService implements CandidateServiceInterface {
 
     private final CandidateRepository candidateRepository;
     private final CandidateMapper candidateMapper;
 
+    @Override
     public CandidateResponse createCandidate(CandidateRequest requestDto) {
         if (candidateRepository.existsByEmail(requestDto.getEmail())) {
             throw new DuplicateResourceException("Candidate already exists with email: " + requestDto.getEmail());
@@ -31,6 +33,7 @@ public class CandidateService {
         return candidateMapper.toResponse(savedCandidate);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public CandidateResponse getCandidateById(Long id) {
         Candidate candidate = candidateRepository.findById(id)
@@ -38,11 +41,13 @@ public class CandidateService {
         return candidateMapper.toResponse(candidate);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Page<CandidateResponse> getAllCandidates(Pageable pageable) {
         return candidateRepository.findAll(pageable).map(candidateMapper::toResponse);
     }
 
+    @Override
     public CandidateResponse updateCandidate(Long id, CandidateRequest requestDto) {
         Candidate existingCandidate = candidateRepository.findById(id)
                 .orElseThrow(() -> ResourceNotFoundException.of("Candidate", id));
@@ -52,6 +57,7 @@ public class CandidateService {
         return candidateMapper.toResponse(updatedCandidate);
     }
 
+    @Override
     public void deleteCandidate(Long id) {
         if (!candidateRepository.existsById(id)) {
             throw ResourceNotFoundException.of("Candidate", id);

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.HumanResourceManagement.Employee.DTO.EmployeeRequest;
 import com.HumanResourceManagement.Employee.DTO.EmployeeResponse;
-import com.HumanResourceManagement.Employee.Service.EmployeeService;
+import com.HumanResourceManagement.Employee.Service.Impl.EmployeeServiceImpl;
 import com.HumanResourceManagement.shared.util.PageableUtils;
 
 import java.util.Optional;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/api/employees")
 public class EmployeeController {
-    private final EmployeeService employeeService;
+    private final EmployeeServiceImpl employeeService;
 
     // to get all the employees (paginated)
     @GetMapping

@@ -1,4 +1,4 @@
-package com.HumanResourceManagement.Organization.Service;
+package com.HumanResourceManagement.Organization.Service.Impl;
 
 import com.HumanResourceManagement.Organization.Model.Department;
 import com.HumanResourceManagement.Organization.Model.JobGrade;
@@ -9,6 +9,7 @@ import com.HumanResourceManagement.Organization.Mapper.PositionMapper;
 import com.HumanResourceManagement.Organization.Repository.DepartmentRepository;
 import com.HumanResourceManagement.Organization.Repository.JobGradeRepository;
 import com.HumanResourceManagement.Organization.Repository.PositionRepository;
+import com.HumanResourceManagement.Organization.Service.PositionServiceInterface;
 import com.HumanResourceManagement.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,13 +22,14 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class PositionService {
+public class PositionService implements PositionServiceInterface {
 
         private final PositionRepository positionRepository;
         private final DepartmentRepository departmentRepository;
         private final JobGradeRepository jobGradeRepository;
         private final PositionMapper positionMapper;
 
+        @Override
         public PositionResponse createPosition(PositionRequest requestDto) {
                 Department department = departmentRepository.findById(requestDto.getDepartmentId())
                                 .orElseThrow(() -> ResourceNotFoundException.of("Department", requestDto.getDepartmentId()));
@@ -44,21 +46,25 @@ public class PositionService {
                 return positionMapper.toResponse(savedPosition);
         }
 
+        @Override
         @Transactional(readOnly = true)
         public Optional<PositionResponse> getPositionById(Long id) {
                 return positionRepository.findById(id).map(positionMapper::toResponse);
         }
 
+        @Override
         @Transactional(readOnly = true)
         public Page<PositionResponse> getAllPositions(Pageable pageable) {
                 return positionRepository.findAll(pageable).map(positionMapper::toResponse);
         }
 
+        @Override
         @Transactional(readOnly = true)
         public Page<PositionResponse> getPositionsByDepartment(Long departmentId, Pageable pageable) {
                 return positionRepository.findByDepartmentId(departmentId, pageable).map(positionMapper::toResponse);
         }
 
+        @Override
         public PositionResponse updatePosition(Long id, PositionRequest requestDto) {
                 Position existingPosition = positionRepository.findById(id)
                                 .orElseThrow(() -> ResourceNotFoundException.of("Position", id));
@@ -78,6 +84,7 @@ public class PositionService {
                 return positionMapper.toResponse(updatedPosition);
         }
 
+        @Override
         public void deletePosition(Long id) {
                 if (!positionRepository.existsById(id)) {
                         throw ResourceNotFoundException.of("Position", id);

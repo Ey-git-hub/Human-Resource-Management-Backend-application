@@ -3,7 +3,7 @@ package com.HumanResourceManagement.Payroll.Controller;
 import com.HumanResourceManagement.Payroll.DTO.PayrollRequest;
 import com.HumanResourceManagement.Payroll.DTO.PayrollResponse;
 import com.HumanResourceManagement.Payroll.Model.PayrollStatus;
-import com.HumanResourceManagement.Payroll.Service.PayrollService;
+import com.HumanResourceManagement.Payroll.Service.Impl.PayrollService;
 import com.HumanResourceManagement.shared.util.PageableUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.HumanResourceManagement.Organization.DTO.BranchRequest;
 import com.HumanResourceManagement.Organization.DTO.BranchResponse;
-import com.HumanResourceManagement.Organization.Service.BranchService;
+import com.HumanResourceManagement.Organization.Service.Impl.BranchService;
 import com.HumanResourceManagement.shared.util.PageableUtils;
 
 @RestController

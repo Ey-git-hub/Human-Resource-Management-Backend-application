@@ -2,7 +2,7 @@ package com.HumanResourceManagement.Organization.Controller;
 
 import com.HumanResourceManagement.Organization.DTO.JobGradeRequest;
 import com.HumanResourceManagement.Organization.DTO.JobGradeResponse;
-import com.HumanResourceManagement.Organization.Service.JobGradeService;
+import com.HumanResourceManagement.Organization.Service.Impl.JobGradeService;
 import com.HumanResourceManagement.shared.util.PageableUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

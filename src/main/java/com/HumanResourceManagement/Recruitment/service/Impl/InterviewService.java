@@ -1,4 +1,4 @@
-package com.HumanResourceManagement.Recruitment.service;
+package com.HumanResourceManagement.Recruitment.service.Impl;
 
 import com.HumanResourceManagement.Employee.Model.Employee;
 import com.HumanResourceManagement.Employee.Repository.EmployeeRepository;
@@ -9,6 +9,7 @@ import com.HumanResourceManagement.Recruitment.dto.InterviewRequest;
 import com.HumanResourceManagement.Recruitment.dto.InterviewResponse;
 import com.HumanResourceManagement.Recruitment.repository.InterviewRepository;
 import com.HumanResourceManagement.Recruitment.repository.JobApplicationRepository;
+import com.HumanResourceManagement.Recruitment.service.InterviewServiceInterface;
 
 // import com.HumanResourceManagement.Recruitment.repository.JobApplicationRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -22,12 +23,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class InterviewService {
+public class InterviewService implements InterviewServiceInterface {
 
     private final InterviewRepository interviewRepository;
     private final JobApplicationRepository jobApplicationRepository;
     private final EmployeeRepository employeeRepository;
 
+    @Override
     public InterviewResponse createInterview(InterviewRequest requestDto) {
         JobApplication jobApplication = jobApplicationRepository.findById(requestDto.getJobApplicationId())
                 .orElseThrow(() -> new EntityNotFoundException(
@@ -43,6 +45,7 @@ public class InterviewService {
         return InterviewResponse.fromEntity(savedInterview);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public InterviewResponse getInterviewById(Long id) {
         Interview interview = interviewRepository.findById(id)
@@ -50,6 +53,7 @@ public class InterviewService {
         return InterviewResponse.fromEntity(interview);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<InterviewResponse> getAllInterviews() {
         return interviewRepository.findAll().stream()
@@ -57,6 +61,7 @@ public class InterviewService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<InterviewResponse> getInterviewsByJobApplication(Long jobApplicationId) {
         return interviewRepository.findByJobApplicationId(jobApplicationId).stream()
@@ -64,6 +69,7 @@ public class InterviewService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<InterviewResponse> getInterviewsByInterviewer(Long interviewerId) {
         return interviewRepository.findByInterviewerId(interviewerId).stream()
@@ -71,6 +77,7 @@ public class InterviewService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public InterviewResponse updateInterview(Long id, InterviewRequest requestDto) {
         Interview existingInterview = interviewRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Interview not found with ID: " + id));
@@ -96,6 +103,7 @@ public class InterviewService {
         return InterviewResponse.fromEntity(updatedInterview);
     }
 
+    @Override
     public void deleteInterview(Long id) {
         if (!interviewRepository.existsById(id)) {
             throw new EntityNotFoundException("Interview not found with ID: " + id);

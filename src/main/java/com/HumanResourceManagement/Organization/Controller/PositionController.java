@@ -2,7 +2,7 @@ package com.HumanResourceManagement.Organization.Controller;
 
 import com.HumanResourceManagement.Organization.DTO.PositionRequest;
 import com.HumanResourceManagement.Organization.DTO.PositionResponse;
-import com.HumanResourceManagement.Organization.Service.PositionService;
+import com.HumanResourceManagement.Organization.Service.Impl.PositionService;
 import com.HumanResourceManagement.shared.util.PageableUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

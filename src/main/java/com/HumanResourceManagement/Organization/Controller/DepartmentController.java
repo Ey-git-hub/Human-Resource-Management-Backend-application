@@ -2,7 +2,7 @@ package com.HumanResourceManagement.Organization.Controller;
 
 import com.HumanResourceManagement.Organization.DTO.DepartmentRequest;
 import com.HumanResourceManagement.Organization.DTO.DepartmentResponse;
-import com.HumanResourceManagement.Organization.Service.DepartmentService;
+import com.HumanResourceManagement.Organization.Service.Impl.DepartmentService;
 import com.HumanResourceManagement.shared.util.PageableUtils;
 
 import jakarta.validation.Valid;

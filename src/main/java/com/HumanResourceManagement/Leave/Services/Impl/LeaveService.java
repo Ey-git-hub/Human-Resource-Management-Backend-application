@@ -1,4 +1,4 @@
-package com.HumanResourceManagement.Leave.Services;
+package com.HumanResourceManagement.Leave.Services.Impl;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,12 +14,13 @@ import com.HumanResourceManagement.Leave.Mapper.LeaveMapper;
 import com.HumanResourceManagement.Leave.Model.Leave;
 import com.HumanResourceManagement.Leave.Model.LeaveStatus;
 import com.HumanResourceManagement.Leave.Repository.LeaveRepository;
+import com.HumanResourceManagement.Leave.Services.LeaveServiceInterface;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class LeaveService {
+public class LeaveService implements LeaveServiceInterface {
     final private LeaveRepository leaveRepository;
     final private EmployeeRepository employeeRepository;
     final private LeaveMapper leaveMapper;

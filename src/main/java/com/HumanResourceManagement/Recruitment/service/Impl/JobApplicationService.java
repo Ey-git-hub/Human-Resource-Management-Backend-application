@@ -1,4 +1,4 @@
-package com.HumanResourceManagement.Recruitment.service;
+package com.HumanResourceManagement.Recruitment.service.Impl;
 
 import com.HumanResourceManagement.Recruitment.Mapper.JobApplicationMapper;
 import com.HumanResourceManagement.Recruitment.Model.Candidate;
@@ -11,6 +11,7 @@ import com.HumanResourceManagement.Recruitment.Mapper.JobApplicationMapper;
 import com.HumanResourceManagement.Recruitment.repository.CandidateRepository;
 import com.HumanResourceManagement.Recruitment.repository.JobApplicationRepository;
 import com.HumanResourceManagement.Recruitment.repository.JobPostingRepository;
+import com.HumanResourceManagement.Recruitment.service.JobApplicationServiceInterface;
 import com.HumanResourceManagement.shared.exception.DuplicateResourceException;
 import com.HumanResourceManagement.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +23,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class JobApplicationService {
+public class JobApplicationService implements JobApplicationServiceInterface {
 
     private final JobApplicationRepository jobApplicationRepository;
     private final CandidateRepository candidateRepository;
     private final JobPostingRepository jobPostingRepository;
     private final JobApplicationMapper jobApplicationMapper;
 
+    @Override
     public JobApplicationResponse createJobApplication(JobApplicationRequest requestDto) {
         if (jobApplicationRepository.existsByCandidateIdAndJobPostingId(
                 requestDto.getCandidateId(), requestDto.getJobPostingId())) {
@@ -47,6 +49,7 @@ public class JobApplicationService {
         return jobApplicationMapper.toResponse(savedApplication);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public JobApplicationResponse getJobApplicationById(Long id) {
         JobApplication jobApplication = jobApplicationRepository.findById(id)
@@ -54,23 +57,27 @@ public class JobApplicationService {
         return jobApplicationMapper.toResponse(jobApplication);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Page<JobApplicationResponse> getAllJobApplications(Pageable pageable) {
         return jobApplicationRepository.findAll(pageable).map(jobApplicationMapper::toResponse);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Page<JobApplicationResponse> getApplicationsByCandidate(Long candidateId, Pageable pageable) {
         return jobApplicationRepository.findByCandidateId(candidateId, pageable)
                 .map(jobApplicationMapper::toResponse);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Page<JobApplicationResponse> getApplicationsByJobPosting(Long jobPostingId, Pageable pageable) {
         return jobApplicationRepository.findByJobPostingId(jobPostingId, pageable)
                 .map(jobApplicationMapper::toResponse);
     }
 
+    @Override
     public JobApplicationResponse updateApplicationStatus(Long id, Status status) {
         JobApplication existingApplication = jobApplicationRepository.findById(id)
                 .orElseThrow(() -> ResourceNotFoundException.of("JobApplication", id));
@@ -80,6 +87,7 @@ public class JobApplicationService {
         return jobApplicationMapper.toResponse(updatedApplication);
     }
 
+    @Override
     public JobApplicationResponse updateJobApplication(Long id, JobApplicationRequest requestDto) {
         JobApplication existingApplication = jobApplicationRepository.findById(id)
                 .orElseThrow(() -> ResourceNotFoundException.of("JobApplication", id));
@@ -104,6 +112,7 @@ public class JobApplicationService {
         return jobApplicationMapper.toResponse(updatedApplication);
     }
 
+    @Override
     public void deleteJobApplication(Long id) {
         if (!jobApplicationRepository.existsById(id)) {
             throw ResourceNotFoundException.of("JobApplication", id);

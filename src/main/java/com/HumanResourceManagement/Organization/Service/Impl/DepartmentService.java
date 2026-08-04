@@ -1,10 +1,11 @@
-package com.HumanResourceManagement.Organization.Service;
+package com.HumanResourceManagement.Organization.Service.Impl;
 
 import com.HumanResourceManagement.Organization.DTO.DepartmentRequest;
 import com.HumanResourceManagement.Organization.DTO.DepartmentResponse;
 import com.HumanResourceManagement.Organization.Mapper.DepartmentMapper;
 import com.HumanResourceManagement.Organization.Model.Department;
 import com.HumanResourceManagement.Organization.Repository.DepartmentRepository;
+import com.HumanResourceManagement.Organization.Service.DepartmentServiceInterface;
 import com.HumanResourceManagement.shared.exception.DuplicateResourceException;
 import com.HumanResourceManagement.shared.exception.ResourceNotFoundException;
 
@@ -17,20 +18,23 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class DepartmentService {
+public class DepartmentService implements DepartmentServiceInterface {
     private final DepartmentRepository departmentRepository;
     private final DepartmentMapper departmentMapper;
 
+    @Override
     public Page<DepartmentResponse> fetchAllDepartments(Pageable pageable) {
         return departmentRepository.findAll(pageable)
                 .map(departmentMapper::toResponse);
     }
 
+    @Override
     public Optional<DepartmentResponse> getDepartment(Long id) {
         return departmentRepository.findById(id)
                 .map(departmentMapper::toResponse);
     }
 
+    @Override
     public DepartmentResponse createDepartment(DepartmentRequest request) {
         if (departmentRepository.existsByName(request.getName())) {
             throw new DuplicateResourceException("Department already exists with name: " + request.getName());
@@ -40,6 +44,7 @@ public class DepartmentService {
         return departmentMapper.toResponse(departmentRepository.save(department));
     }
 
+    @Override
     public DepartmentResponse updateDepartment(Long id, DepartmentRequest request) {
         Department existing = departmentRepository.findById(id)
                 .orElseThrow(() -> ResourceNotFoundException.of("Department", id));
@@ -47,6 +52,7 @@ public class DepartmentService {
         return departmentMapper.toResponse(departmentRepository.save(existing));
     }
 
+    @Override
     public void deleteDepartment(Long id) {
         if (!departmentRepository.existsById(id)) {
             throw ResourceNotFoundException.of("Department", id);

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.HumanResourceManagement.Attendance.DTO.AttendanceRequest;
 import com.HumanResourceManagement.Attendance.DTO.AttendanceResponse;
-import com.HumanResourceManagement.Attendance.Service.AttendanceService;
+import com.HumanResourceManagement.Attendance.Service.AttendanceServiceInterface;
 import com.HumanResourceManagement.shared.util.PageableUtils;
 
 import jakarta.validation.Valid;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 @RequestMapping("/api/attendance")
 public class AttendanceController {
-    private final AttendanceService attendanceService;
+    private final AttendanceServiceInterface attendanceService;
 
     @GetMapping
     public ResponseEntity<Page<AttendanceResponse>> getAllAttendance(

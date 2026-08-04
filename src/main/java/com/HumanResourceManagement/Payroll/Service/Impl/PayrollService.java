@@ -1,4 +1,4 @@
-package com.HumanResourceManagement.Payroll.Service;
+package com.HumanResourceManagement.Payroll.Service.Impl;
 
 import com.HumanResourceManagement.Employee.Model.Employee;
 import com.HumanResourceManagement.Employee.Repository.EmployeeRepository;
@@ -8,6 +8,7 @@ import com.HumanResourceManagement.Payroll.Mapper.PayrollMapper;
 import com.HumanResourceManagement.Payroll.Model.Payroll;
 import com.HumanResourceManagement.Payroll.Model.PayrollStatus;
 import com.HumanResourceManagement.Payroll.Repository.PayrollRepository;
+import com.HumanResourceManagement.Payroll.Service.PayrollServiceInterface;
 import com.HumanResourceManagement.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,12 +22,13 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class PayrollService {
+public class PayrollService implements PayrollServiceInterface {
 
     private final PayrollRepository payrollRepository;
     private final EmployeeRepository employeeRepository;
     private final PayrollMapper payrollMapper;
 
+    @Override
     public PayrollResponse createPayroll(PayrollRequest requestDto) {
         Employee employee = employeeRepository.findById(requestDto.getEmployeeId())
                 .orElseThrow(() -> ResourceNotFoundException.of("Employee", requestDto.getEmployeeId()));
@@ -36,21 +38,25 @@ public class PayrollService {
 
         return payrollMapper.toResponse(savedPayroll);
     }
+    @Override
     @Transactional(readOnly = true)
     public Optional<PayrollResponse> getPayrollById(Long id) {
         return payrollRepository.findById(id).map(payrollMapper::toResponse);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Page<PayrollResponse> getAllPayrolls(Pageable pageable) {
         return payrollRepository.findAll(pageable).map(payrollMapper::toResponse);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Page<PayrollResponse> getPayrollsByEmployee(Long employeeId, Pageable pageable) {
         return payrollRepository.findByEmployeeId(employeeId, pageable).map(payrollMapper::toResponse);
     }
 
+    @Override
     public PayrollResponse updatePayroll(Long id, PayrollRequest requestDto) {
         Payroll existingPayroll = payrollRepository.findById(id)
             .orElseThrow(() -> ResourceNotFoundException.of("Payroll", id));
@@ -63,6 +69,7 @@ public class PayrollService {
         return payrollMapper.toResponse(updatedPayroll);
     }
 
+    @Override
     public PayrollResponse updateStatus(Long id, PayrollStatus status, LocalDate paymentDate) {
         Payroll payroll = payrollRepository.findById(id)
                 .orElseThrow(() -> ResourceNotFoundException.of("Payroll", id));
@@ -78,6 +85,7 @@ public class PayrollService {
         return payrollMapper.toResponse(updated);
     }
 
+    @Override
     public void deletePayroll(Long id) {
         if (!payrollRepository.existsById(id)) {
             throw ResourceNotFoundException.of("Payroll", id);

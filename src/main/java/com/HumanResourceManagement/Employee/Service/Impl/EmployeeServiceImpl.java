@@ -1,10 +1,11 @@
-package com.HumanResourceManagement.Employee.Service;
+package com.HumanResourceManagement.Employee.Service.Impl;
 
 import com.HumanResourceManagement.Employee.DTO.EmployeeRequest;
 import com.HumanResourceManagement.Employee.DTO.EmployeeResponse;
 import com.HumanResourceManagement.Employee.Mapper.EmployeeMapper;
 import com.HumanResourceManagement.Employee.Model.Employee;
 import com.HumanResourceManagement.Employee.Repository.EmployeeRepository;
+import com.HumanResourceManagement.Employee.Service.EmployeeServiceInterface;
 import com.HumanResourceManagement.Organization.Model.Department;
 import com.HumanResourceManagement.Organization.Repository.DepartmentRepository;
 import com.HumanResourceManagement.shared.exception.DuplicateResourceException;
@@ -19,21 +20,24 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class EmployeeService {
+public class EmployeeServiceImpl implements EmployeeServiceInterface {
     private final EmployeeRepository employeeRepository;
     private final DepartmentRepository departmentRepository;
     private final EmployeeMapper employeeMapper;
 
+    @Override
     public Page<EmployeeResponse> fetchAllEmployees(Pageable pageable) {
         return employeeRepository.findAll(pageable)
                 .map(employeeMapper::toResponse);
     }
 
+    @Override
     public Optional<EmployeeResponse> getEmployeeById(Long id) {
         return employeeRepository.findById(id)
                 .map(employeeMapper::toResponse);
     }
 
+    @Override
     public EmployeeResponse createEmployee(EmployeeRequest request) {
         // Check if employee already exists with email
         if (employeeRepository.existsByEmail(request.getEmail())) {
@@ -47,6 +51,7 @@ public class EmployeeService {
         return employeeMapper.toResponse(savedEmployee);
     }
 
+    @Override
     public EmployeeResponse UpdateEmployee(Long id, EmployeeRequest request) {
         Employee existing = employeeRepository.findById(id)
                 .orElseThrow(() -> ResourceNotFoundException.of("Employee", id));
@@ -64,6 +69,7 @@ public class EmployeeService {
         return employeeMapper.toResponse(employeeRepository.save(existing));
     }
 
+    @Override
     public void deleteEmployee(Long id) {
         Employee result = employeeRepository.findById(id)
                 .orElseThrow(() -> ResourceNotFoundException.of("Employee", id));

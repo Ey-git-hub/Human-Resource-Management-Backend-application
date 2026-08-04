@@ -2,7 +2,7 @@ package com.HumanResourceManagement.Recruitment.Controller;
 
 import com.HumanResourceManagement.Recruitment.dto.CandidateRequest;
 import com.HumanResourceManagement.Recruitment.dto.CandidateResponse;
-import com.HumanResourceManagement.Recruitment.service.CandidateService;
+import com.HumanResourceManagement.Recruitment.service.Impl.CandidateService;
 import com.HumanResourceManagement.shared.util.PageableUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -2,7 +2,8 @@ package com.HumanResourceManagement.Recruitment.Controller;
 
 import com.HumanResourceManagement.Recruitment.dto.InterviewRequest;
 import com.HumanResourceManagement.Recruitment.dto.InterviewResponse;
-import com.HumanResourceManagement.Recruitment.service.InterviewService;
+import com.HumanResourceManagement.Recruitment.service.Impl.InterviewService;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import com.HumanResourceManagement.Attendance.DTO.AttendanceRequest;
 import com.HumanResourceManagement.Attendance.DTO.AttendanceResponse;
 
-public interface AttendanceService{
+public interface AttendanceServiceInterface{
     Page<AttendanceResponse> getAllAttendance(Pageable pageable);
 
     Optional<AttendanceResponse> getAttendanceById(Long id);
