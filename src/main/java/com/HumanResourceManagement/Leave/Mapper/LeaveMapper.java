@@ -1,11 +1,10 @@
 package com.HumanResourceManagement.Leave.Mapper;
 
 import com.HumanResourceManagement.Leave.DTO.LeaveRequest;
-// import com.HumanResourceManagement.Leave.DTO.LeaveRequestDto;
 import com.HumanResourceManagement.Leave.DTO.LeaveResponse;
-// import com.HumanResourceManagement.Leave.DTO.LeaveResponseDto;
 import com.HumanResourceManagement.Leave.Model.Leave;
 import com.HumanResourceManagement.Employee.Model.Employee;
+import com.HumanResourceManagement.shared.util.MapperUtils;
 import org.springframework.stereotype.Component;
 
 import java.time.temporal.ChronoUnit;
@@ -14,29 +13,18 @@ import java.time.temporal.ChronoUnit;
 public class LeaveMapper {
 
     public LeaveResponse toResponseDto(Leave leave) {
-        LeaveResponse dto = new LeaveResponse();
-        dto.setId(leave.getId());
-        dto.setEmployeeId(leave.getEmployee().getId());
-        // TODO: confirm Employee's actual name field(s) once shared
-        dto.setEmployeeName(leave.getEmployee().getFirstName() + " " + leave.getEmployee().getLastName());
-        dto.setLeaveType(leave.getLeaveType());
-        dto.setStatus(leave.getStatus());
-        dto.setReason(leave.getReason());
-        dto.setStartDate(leave.getStartDate());
-        dto.setEndDate(leave.getEndDate());
+        LeaveResponse dto = MapperUtils.map(leave, LeaveResponse.class);
+        if (leave.getEmployee() != null) {
+            dto.setEmployeeId(leave.getEmployee().getId());
+            dto.setEmployeeName(leave.getEmployee().getFirstName() + " " + leave.getEmployee().getLastName());
+        }
         dto.setNumberOfDays(ChronoUnit.DAYS.between(leave.getStartDate(), leave.getEndDate()) + 1);
         return dto;
     }
 
     public Leave toEntity(LeaveRequest dto, Employee employee) {
-        Leave leave = new Leave();
+        Leave leave = MapperUtils.map(dto, Leave.class);
         leave.setEmployee(employee);
-        leave.setLeaveType(dto.getLeaveType());
-        leave.setReason(dto.getReason());
-        leave.setStartDate(dto.getStartDate());
-        leave.setEndDate(dto.getEndDate());
-        // status defaults to PENDING via the field initializer on Leave, so we don't
-        // set it here
         return leave;
     }
 }
