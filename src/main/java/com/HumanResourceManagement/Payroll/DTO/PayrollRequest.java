@@ -1,7 +1,5 @@
 package com.HumanResourceManagement.Payroll.DTO;
 
-import com.HumanResourceManagement.Employee.Model.Employee;
-import com.HumanResourceManagement.Payroll.Model.Payroll;
 import com.HumanResourceManagement.Payroll.Model.PayrollStatus;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -41,22 +39,4 @@ public class PayrollRequest {
     private PayrollStatus status;
 
     private LocalDate paymentDate;
-
-    public Payroll toEntity(Employee employee) {
-        Payroll payroll = new Payroll();
-        payroll.setEmployee(employee);
-        payroll.setPayPeriodStart(this.payPeriodStart);
-        payroll.setPayPeriodEnd(this.payPeriodEnd);
-        payroll.setBasicSalary(this.basicSalary != null ? this.basicSalary.doubleValue() : 0.0);
-        payroll.setAllowances(this.allowances != null ? this.allowances.doubleValue() : 0.0);
-        payroll.setDeductions(this.deductions != null ? this.deductions.doubleValue() : 0.0);
-
-        // Business Logic: Auto-calculate Net Salary = Basic + Allowances - Deductions
-        double calculatedNet = payroll.getBasicSalary() + payroll.getAllowances() - payroll.getDeductions();
-        payroll.setNetSalary(calculatedNet);
-
-        payroll.setStatus(this.status != null ? this.status : PayrollStatus.PENDING);
-        payroll.setPaymentDate(this.paymentDate);
-        return payroll;
-    }
 }
