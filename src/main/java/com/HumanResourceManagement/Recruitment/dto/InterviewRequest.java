@@ -2,7 +2,7 @@ package com.HumanResourceManagement.Recruitment.dto;
 
 import com.HumanResourceManagement.Recruitment.Model.Interview.Mode;
 import com.HumanResourceManagement.Recruitment.Model.Interview.Status;
-import com.HumanResourceManagement.Recruitment.Model.JobApplication;
+// import com.HumanResourceManagement.Recruitment.Model.JobApplication;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

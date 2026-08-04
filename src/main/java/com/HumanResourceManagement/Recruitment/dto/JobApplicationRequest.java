@@ -1,7 +1,7 @@
 package com.HumanResourceManagement.Recruitment.dto;
 
 import com.HumanResourceManagement.Recruitment.Model.JobApplication.Status;
-import com.HumanResourceManagement.Recruitment.Model.JobPosting;
+// import com.HumanResourceManagement.Recruitment.Model.JobPosting;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
