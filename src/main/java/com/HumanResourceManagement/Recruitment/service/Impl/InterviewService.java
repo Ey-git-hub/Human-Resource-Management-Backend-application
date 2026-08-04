@@ -3,6 +3,7 @@ package com.HumanResourceManagement.Recruitment.service.Impl;
 import com.HumanResourceManagement.Employee.Model.Employee;
 import com.HumanResourceManagement.Employee.Repository.EmployeeRepository;
 // import com.HumanResourceManagement.Employee.repository.EmployeeRepository;
+import com.HumanResourceManagement.Recruitment.Mapper.InterviewMapper;
 import com.HumanResourceManagement.Recruitment.Model.Interview;
 import com.HumanResourceManagement.Recruitment.Model.JobApplication;
 import com.HumanResourceManagement.Recruitment.dto.InterviewRequest;
@@ -28,6 +29,7 @@ public class InterviewService implements InterviewServiceInterface {
     private final InterviewRepository interviewRepository;
     private final JobApplicationRepository jobApplicationRepository;
     private final EmployeeRepository employeeRepository;
+    private final InterviewMapper interviewMapper;
 
     @Override
     public InterviewResponse createInterview(InterviewRequest requestDto) {
@@ -39,10 +41,10 @@ public class InterviewService implements InterviewServiceInterface {
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Employee (Interviewer) not found with ID: " + requestDto.getInterviewerId()));
 
-        Interview interview = requestDto.toEntity(jobApplication, interviewer);
+        Interview interview = interviewMapper.toEntity(requestDto, jobApplication, interviewer);
         Interview savedInterview = interviewRepository.save(interview);
 
-        return InterviewResponse.fromEntity(savedInterview);
+        return interviewMapper.toResponse(savedInterview);
     }
 
     @Override
@@ -50,14 +52,14 @@ public class InterviewService implements InterviewServiceInterface {
     public InterviewResponse getInterviewById(Long id) {
         Interview interview = interviewRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Interview not found with ID: " + id));
-        return InterviewResponse.fromEntity(interview);
+        return interviewMapper.toResponse(interview);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<InterviewResponse> getAllInterviews() {
         return interviewRepository.findAll().stream()
-                .map(InterviewResponse::fromEntity)
+                .map(interviewMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
@@ -65,7 +67,7 @@ public class InterviewService implements InterviewServiceInterface {
     @Transactional(readOnly = true)
     public List<InterviewResponse> getInterviewsByJobApplication(Long jobApplicationId) {
         return interviewRepository.findByJobApplicationId(jobApplicationId).stream()
-                .map(InterviewResponse::fromEntity)
+                .map(interviewMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
@@ -73,7 +75,7 @@ public class InterviewService implements InterviewServiceInterface {
     @Transactional(readOnly = true)
     public List<InterviewResponse> getInterviewsByInterviewer(Long interviewerId) {
         return interviewRepository.findByInterviewerId(interviewerId).stream()
-                .map(InterviewResponse::fromEntity)
+                .map(interviewMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
@@ -100,7 +102,7 @@ public class InterviewService implements InterviewServiceInterface {
         existingInterview.setRating(requestDto.getRating());
 
         Interview updatedInterview = interviewRepository.save(existingInterview);
-        return InterviewResponse.fromEntity(updatedInterview);
+        return interviewMapper.toResponse(updatedInterview);
     }
 
     @Override
