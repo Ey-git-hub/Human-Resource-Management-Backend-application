@@ -1,6 +1,5 @@
 package com.HumanResourceManagement.Recruitment.dto;
 
-import com.HumanResourceManagement.Recruitment.Model.Candidate;
 import com.HumanResourceManagement.Recruitment.Model.Candidate.Source;
 import com.HumanResourceManagement.Recruitment.Model.Candidate.Status;
 import lombok.Builder;
@@ -20,26 +19,4 @@ public class CandidateResponse {
     private String linkedInUrl;
     private Source source;
     private Status status;
-
-    /**
-     * Converts Candidate Entity -> Response DTO
-     */
-    public static CandidateResponse fromEntity(Candidate entity) {
-        if (entity == null) {
-            return null;
-        }
-
-        return CandidateResponse.builder()
-                .id(entity.getId())
-                .firstName(entity.getFirstName())
-                .lastName(entity.getLastName())
-                .email(entity.getEmail())
-                .phone(entity.getPhone())
-                .resumeUrl(entity.getResumeUrl())
-                .coverLetterUrl(entity.getCoverLetterUrl())
-                .linkedInUrl(entity.getLinkedInUrl())
-                .source(entity.getSource())
-                .status(entity.getStatus())
-                .build();
-    }
 }
