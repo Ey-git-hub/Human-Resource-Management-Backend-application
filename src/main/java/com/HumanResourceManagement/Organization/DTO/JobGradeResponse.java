@@ -1,6 +1,5 @@
 package com.HumanResourceManagement.Organization.DTO;
 
-import com.HumanResourceManagement.Organization.Model.JobGrade;
 import lombok.Builder;
 import lombok.Data;
 
@@ -16,22 +15,4 @@ public class JobGradeResponse {
     private String description;
     private BigDecimal minSalary;
     private BigDecimal maxSalary;
-
-    /**
-     * Converts JobGrade Entity -> Response DTO
-     */
-    public static JobGradeResponse fromEntity(JobGrade entity) {
-        if (entity == null) {
-            return null;
-        }
-
-        return JobGradeResponse.builder()
-                .id(entity.getId())
-                .name(entity.getName())
-                .level(entity.getLevel())
-                .description(entity.getDescription())
-                .minSalary(entity.getMinSalary())
-                .maxSalary(entity.getMaxSalary())
-                .build();
-    }
 }
