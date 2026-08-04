@@ -2,33 +2,34 @@ package com.HumanResourceManagement.Payroll.Mapper;
 
 import org.springframework.stereotype.Component;
 
+import com.HumanResourceManagement.Employee.Model.Employee;
 import com.HumanResourceManagement.Payroll.DTO.PayrollRequest;
 import com.HumanResourceManagement.Payroll.DTO.PayrollResponse;
 import com.HumanResourceManagement.Payroll.Model.Payroll;
-import com.HumanResourceManagement.Employee.Model.Employee;
 import com.HumanResourceManagement.Payroll.Model.PayrollStatus;
-
-// import java.math.BigDecimal;
+import com.HumanResourceManagement.shared.util.MapperUtils;
 
 @Component
 public class PayrollMapper {
 
     public PayrollResponse toResponse(Payroll payroll) {
-        return PayrollResponse.fromEntity(payroll);
+        PayrollResponse response = MapperUtils.map(payroll, PayrollResponse.class);
+        if (payroll.getEmployee() != null) {
+            response.setEmployeeId(payroll.getEmployee().getId());
+            response.setEmployeeName(payroll.getEmployee().getFirstName() + " " + payroll.getEmployee().getLastName());
+        }
+        return response;
     }
 
     public Payroll toEntity(PayrollRequest request, Employee employee) {
-        Payroll payroll = new Payroll();
+        Payroll payroll = MapperUtils.map(request, Payroll.class);
         payroll.setEmployee(employee);
-        payroll.setPayPeriodStart(request.getPayPeriodStart());
-        payroll.setPayPeriodEnd(request.getPayPeriodEnd());
         payroll.setBasicSalary(request.getBasicSalary() != null ? request.getBasicSalary().doubleValue() : 0.0);
         payroll.setAllowances(request.getAllowances() != null ? request.getAllowances().doubleValue() : 0.0);
         payroll.setDeductions(request.getDeductions() != null ? request.getDeductions().doubleValue() : 0.0);
         double net = payroll.getBasicSalary() + payroll.getAllowances() - payroll.getDeductions();
         payroll.setNetSalary(net);
         payroll.setStatus(request.getStatus() != null ? request.getStatus() : PayrollStatus.PENDING);
-        payroll.setPaymentDate(request.getPaymentDate());
         return payroll;
     }
 
