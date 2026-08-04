@@ -1,7 +1,5 @@
 package com.HumanResourceManagement.Recruitment.dto;
 
-import com.HumanResourceManagement.Employee.Model.Employee;
-import com.HumanResourceManagement.Recruitment.Model.Interview;
 import com.HumanResourceManagement.Recruitment.Model.Interview.Mode;
 import com.HumanResourceManagement.Recruitment.Model.Interview.Status;
 import com.HumanResourceManagement.Recruitment.Model.JobApplication;
@@ -37,17 +35,4 @@ public class InterviewRequest {
     @Min(value = 0, message = "Rating cannot be less than 0")
     @Max(value = 5, message = "Rating cannot be greater than 5")
     private int rating;
-
-    public Interview toEntity(JobApplication jobApplication, Employee interviewer) {
-        Interview interview = new Interview();
-        interview.setJobApplication(jobApplication);
-        interview.setInterviewer(interviewer);
-        interview.setScheduledDate(this.scheduledDate);
-        interview.setMode(this.mode);
-        interview.setLocation(this.location);
-        interview.setStatus(this.status);
-        interview.setFeedback(this.feedback);
-        interview.setRating(this.rating);
-        return interview;
-    }
 }
