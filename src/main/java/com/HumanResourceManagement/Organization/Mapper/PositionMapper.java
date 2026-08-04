@@ -7,28 +7,27 @@ import com.HumanResourceManagement.Organization.DTO.PositionResponse;
 import com.HumanResourceManagement.Organization.Model.Position;
 import com.HumanResourceManagement.Organization.Model.Department;
 import com.HumanResourceManagement.Organization.Model.JobGrade;
+import com.HumanResourceManagement.shared.util.MapperUtils;
 
 @Component
 public class PositionMapper {
 
     public PositionResponse toResponse(Position position) {
-        return PositionResponse.fromEntity(position);
+        return MapperUtils.map(position, PositionResponse.class);
     }
 
     public Position toEntity(PositionRequest request, Department department, JobGrade jobGrade) {
-        return request.toEntity(department, jobGrade);
+        Position position = MapperUtils.map(request, Position.class);
+        position.setDepartment(department);
+        position.setJobGrade(jobGrade);
+        return position;
     }
 
     public void updateEntity(Position existing, PositionRequest request, Department department, JobGrade jobGrade) {
+        MapperUtils.copy(request, existing);
         if (department != null) {
             existing.setDepartment(department);
         }
         existing.setJobGrade(jobGrade);
-        existing.setTitle(request.getTitle());
-        existing.setCode(request.getCode());
-        existing.setDescription(request.getDescription());
-        existing.setMinSalary(request.getMinSalary());
-        existing.setMaxSalary(request.getMaxSalary());
-        existing.setStatus(request.getStatus());
     }
 }
