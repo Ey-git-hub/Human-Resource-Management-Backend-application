@@ -6,30 +6,31 @@ import com.HumanResourceManagement.Organization.DTO.BranchRequest;
 import com.HumanResourceManagement.Organization.DTO.BranchResponse;
 import com.HumanResourceManagement.Organization.Model.Branch;
 import com.HumanResourceManagement.Organization.Model.Organization;
+import com.HumanResourceManagement.shared.util.MapperUtils;
 
 @Component
 public class BranchMapper {
 
     public BranchResponse toResponse(Branch branch) {
-        return BranchResponse.fromEntity(branch);
+        BranchResponse response = MapperUtils.map(branch, BranchResponse.class);
+        if (branch.getOrganization() != null) {
+            response.setOrganizationId(branch.getOrganization().getId());
+            response.setOrganizationName(branch.getOrganization().getName());
+        }
+        return response;
     }
 
     public Branch toEntity(BranchRequest request, Organization organization) {
-        return request.toEntity(organization);
+        Branch branch = MapperUtils.map(request, Branch.class);
+        branch.setOrganization(organization);
+        return branch;
     }
 
     public void updateEntity(Branch existing, BranchRequest request, Organization organization) {
+        MapperUtils.copy(request, existing);
         if (organization != null) {
             existing.setOrganization(organization);
         }
-        existing.setName(request.getName());
-        existing.setCode(request.getCode());
-        existing.setAddress(request.getAddress());
-        existing.setCity(request.getCity());
-        existing.setRegion(request.getRegion());
-        existing.setCountry(request.getCountry());
-        existing.setPhone(request.getPhone());
-        existing.setEmail(request.getEmail());
         existing.setHeadquarters(Boolean.TRUE.equals(request.getHeadquarters()));
         if (request.getStatus() != null) {
             existing.setStatus(Branch.Status.valueOf(request.getStatus().toUpperCase()));
