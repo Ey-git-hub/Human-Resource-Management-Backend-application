@@ -1,6 +1,5 @@
 package com.HumanResourceManagement.Organization.DTO;
 
-import com.HumanResourceManagement.Organization.Model.Organization;
 import lombok.Builder;
 import lombok.Data;
 
@@ -25,30 +24,4 @@ public class OrganizationResponse {
     private LocalDate foundedDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
-    /**
-     * Converts Organization Entity -> Response DTO
-     */
-    public static OrganizationResponse fromEntity(Organization entity) {
-        if (entity == null) {
-            return null;
-        }
-
-        return OrganizationResponse.builder()
-                .id(entity.getId())
-                .name(entity.getName())
-                .legalName(entity.getLegalName())
-                .registrationNumber(entity.getRegistrationNumber())
-                .taxId(entity.getTaxId())
-                .industry(entity.getIndustry())
-                .address(entity.getAddress())
-                .phone(entity.getPhone())
-                .email(entity.getEmail())
-                .website(entity.getWebsite())
-                .logoUrl(entity.getLogoUrl())
-                .foundedDate(entity.getFoundedDate())
-                .createdAt(entity.getCreatedAt())
-                .updatedAt(entity.getUpdatedAt())
-                .build();
-    }
 }
