@@ -1,6 +1,5 @@
 package com.HumanResourceManagement.Organization.DTO;
 
-import com.HumanResourceManagement.Organization.Model.JobGrade;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,17 +22,4 @@ public class JobGradeRequest {
     private BigDecimal minSalary;
 
     private BigDecimal maxSalary;
-
-    /**
-     * Converts incoming request DTO -> JobGrade Entity
-     */
-    public JobGrade toEntity() {
-        JobGrade jobGrade = new JobGrade();
-        jobGrade.setName(this.name);
-        jobGrade.setLevel(this.level);
-        jobGrade.setDescription(this.description);
-        jobGrade.setMinSalary(this.minSalary);
-        jobGrade.setMaxSalary(this.maxSalary);
-        return jobGrade;
-    }
 }
