@@ -2,13 +2,15 @@ package com.HumanResourceManagement.Recruitment.dto;
 
 import com.HumanResourceManagement.Recruitment.Model.JobPosting.EmploymentType;
 import com.HumanResourceManagement.Recruitment.Model.JobPosting.Status;
-import lombok.Builder;
+
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Data
-@Builder
+
+@NoArgsConstructor
 public class JobPostingResponse {
 
     private Long id;
