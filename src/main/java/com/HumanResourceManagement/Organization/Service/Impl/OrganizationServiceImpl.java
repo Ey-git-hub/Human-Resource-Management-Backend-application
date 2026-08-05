@@ -18,7 +18,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class OrganizationService implements OrganizationServiceInterface {
+public class OrganizationServiceImpl implements OrganizationServiceInterface {
 
     private final OrganizationRepository organizationRepository;
     private final OrganizationMapper organizationMapper;

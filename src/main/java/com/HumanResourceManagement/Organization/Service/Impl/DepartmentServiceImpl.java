@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class DepartmentService implements DepartmentServiceInterface {
+public class DepartmentServiceImpl implements DepartmentServiceInterface {
     private final DepartmentRepository departmentRepository;
     private final DepartmentMapper departmentMapper;
 

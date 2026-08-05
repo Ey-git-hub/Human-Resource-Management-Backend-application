@@ -2,7 +2,8 @@ package com.HumanResourceManagement.Organization.Controller;
 
 import com.HumanResourceManagement.Organization.DTO.PositionRequest;
 import com.HumanResourceManagement.Organization.DTO.PositionResponse;
-import com.HumanResourceManagement.Organization.Service.Impl.PositionService;
+// import com.HumanResourceManagement.Organization.Service.Impl.PositionService;
+import com.HumanResourceManagement.Organization.Service.Impl.PositionServiceImpl;
 import com.HumanResourceManagement.shared.util.PageableUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class PositionController {
 
-    private final PositionService positionService;
+    private final PositionServiceImpl positionService;
 
     @PostMapping
     public ResponseEntity<PositionResponse> createPosition(@Valid @RequestBody PositionRequest requestDto) {

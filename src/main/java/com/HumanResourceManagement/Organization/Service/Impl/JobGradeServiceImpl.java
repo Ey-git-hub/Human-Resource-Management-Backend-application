@@ -18,7 +18,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class JobGradeService implements JobGradeServiceInterface {
+public class JobGradeServiceImpl implements JobGradeServiceInterface {
 
     private final JobGradeRepository jobGradeRepository;
     private final JobGradeMapper jobGradeMapper;

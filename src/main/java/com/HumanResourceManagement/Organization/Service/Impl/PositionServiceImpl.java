@@ -22,7 +22,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class PositionService implements PositionServiceInterface {
+public class PositionServiceImpl implements PositionServiceInterface {
 
         private final PositionRepository positionRepository;
         private final DepartmentRepository departmentRepository;

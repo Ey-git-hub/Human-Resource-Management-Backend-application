@@ -20,7 +20,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class BranchService implements BranchServiceInterface {
+public class BranchServiceImpl implements BranchServiceInterface {
 
     private final BranchRepository branchRepository;
     private final OrganizationRepository organizationRepository;

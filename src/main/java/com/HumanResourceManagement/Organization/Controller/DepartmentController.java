@@ -2,7 +2,8 @@ package com.HumanResourceManagement.Organization.Controller;
 
 import com.HumanResourceManagement.Organization.DTO.DepartmentRequest;
 import com.HumanResourceManagement.Organization.DTO.DepartmentResponse;
-import com.HumanResourceManagement.Organization.Service.Impl.DepartmentService;
+// import com.HumanResourceManagement.Organization.Service.Impl.DepartmentService;
+import com.HumanResourceManagement.Organization.Service.Impl.DepartmentServiceImpl;
 import com.HumanResourceManagement.shared.util.PageableUtils;
 
 import jakarta.validation.Valid;
@@ -18,7 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/departments")
 public class DepartmentController {
-  private final DepartmentService departmentService;
+  private final DepartmentServiceImpl departmentService;
 
   @GetMapping
   public ResponseEntity<Page<DepartmentResponse>> getAllDepartments(

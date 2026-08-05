@@ -2,7 +2,8 @@ package com.HumanResourceManagement.Organization.Controller;
 
 import com.HumanResourceManagement.Organization.DTO.JobGradeRequest;
 import com.HumanResourceManagement.Organization.DTO.JobGradeResponse;
-import com.HumanResourceManagement.Organization.Service.Impl.JobGradeService;
+// import com.HumanResourceManagement.Organization.Service.Impl.JobGradeService;
+import com.HumanResourceManagement.Organization.Service.Impl.JobGradeServiceImpl;
 import com.HumanResourceManagement.shared.util.PageableUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class JobGradeController {
 
-    private final JobGradeService jobGradeService;
+    private final JobGradeServiceImpl jobGradeService;
 
     @PostMapping
     public ResponseEntity<JobGradeResponse> createJobGrade(@Valid @RequestBody JobGradeRequest requestDto) {

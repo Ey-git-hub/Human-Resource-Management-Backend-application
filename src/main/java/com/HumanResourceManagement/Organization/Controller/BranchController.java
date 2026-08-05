@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.HumanResourceManagement.Organization.DTO.BranchRequest;
 import com.HumanResourceManagement.Organization.DTO.BranchResponse;
-import com.HumanResourceManagement.Organization.Service.Impl.BranchService;
+// import com.HumanResourceManagement.Organization.Service.Impl.BranchService;
+import com.HumanResourceManagement.Organization.Service.Impl.BranchServiceImpl;
 import com.HumanResourceManagement.shared.util.PageableUtils;
 
 @RestController
@@ -17,7 +18,7 @@ import com.HumanResourceManagement.shared.util.PageableUtils;
 @RequiredArgsConstructor
 public class BranchController {
 
-    private final BranchService branchService;
+    private final BranchServiceImpl branchService;
 
     @PostMapping
     public ResponseEntity<BranchResponse> create(@Valid @RequestBody BranchRequest dto) {
