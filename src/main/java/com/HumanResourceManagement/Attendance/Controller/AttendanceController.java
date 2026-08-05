@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/attendance")
+@RequestMapping("/api/v1/attendances")
 public class AttendanceController {
     private final AttendanceServiceInterface attendanceService;
 
