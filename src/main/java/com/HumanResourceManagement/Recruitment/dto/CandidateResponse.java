@@ -2,11 +2,13 @@ package com.HumanResourceManagement.Recruitment.dto;
 
 import com.HumanResourceManagement.Recruitment.Model.Candidate.Source;
 import com.HumanResourceManagement.Recruitment.Model.Candidate.Status;
-import lombok.Builder;
+
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Builder
+
+@NoArgsConstructor
 public class CandidateResponse {
 
     private Long id;
