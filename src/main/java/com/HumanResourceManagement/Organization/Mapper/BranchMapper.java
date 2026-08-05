@@ -23,6 +23,10 @@ public class BranchMapper {
     public Branch toEntity(BranchRequest request, Organization organization) {
         Branch branch = MapperUtils.map(request, Branch.class);
         branch.setOrganization(organization);
+        branch.setHeadquarters(Boolean.TRUE.equals(request.getHeadquarters()));
+        if (request.getStatus() != null) {
+            branch.setStatus(Branch.Status.valueOf(request.getStatus().toUpperCase()));
+        }
         return branch;
     }
 

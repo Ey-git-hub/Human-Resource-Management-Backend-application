@@ -1,11 +1,13 @@
 package com.HumanResourceManagement.Organization.DTO;
 
 import com.HumanResourceManagement.Organization.Model.Branch.Status;
-import lombok.Builder;
+
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Builder
+
+@NoArgsConstructor
 public class BranchResponse {
 
     private Long id;

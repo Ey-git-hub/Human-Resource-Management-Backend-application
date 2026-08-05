@@ -1,13 +1,15 @@
 package com.HumanResourceManagement.Organization.DTO;
 
 import com.HumanResourceManagement.Organization.Model.Position.Status;
-import lombok.Builder;
+
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Data
-@Builder
+
+@NoArgsConstructor
 public class PositionResponse {
 
     private Long id;

@@ -13,7 +13,16 @@ import com.HumanResourceManagement.shared.util.MapperUtils;
 public class PositionMapper {
 
     public PositionResponse toResponse(Position position) {
-        return MapperUtils.map(position, PositionResponse.class);
+        PositionResponse response = MapperUtils.map(position, PositionResponse.class);
+        if (position.getDepartment() != null) {
+            response.setDepartmentId(position.getDepartment().getId());
+            response.setDepartmentName(position.getDepartment().getName());
+        }
+        if (position.getJobGrade() != null) {
+            response.setJobGradeId(position.getJobGrade().getId());
+            response.setJobGradeName(position.getJobGrade().getName());
+        }
+        return response;
     }
 
     public Position toEntity(PositionRequest request, Department department, JobGrade jobGrade) {
