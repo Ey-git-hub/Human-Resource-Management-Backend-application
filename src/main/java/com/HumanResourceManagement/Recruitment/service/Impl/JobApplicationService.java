@@ -7,7 +7,6 @@ import com.HumanResourceManagement.Recruitment.Model.JobApplication.Status;
 import com.HumanResourceManagement.Recruitment.Model.JobPosting;
 import com.HumanResourceManagement.Recruitment.dto.JobApplicationRequest;
 import com.HumanResourceManagement.Recruitment.dto.JobApplicationResponse;
-import com.HumanResourceManagement.Recruitment.Mapper.JobApplicationMapper;
 import com.HumanResourceManagement.Recruitment.repository.CandidateRepository;
 import com.HumanResourceManagement.Recruitment.repository.JobApplicationRepository;
 import com.HumanResourceManagement.Recruitment.repository.JobPostingRepository;
